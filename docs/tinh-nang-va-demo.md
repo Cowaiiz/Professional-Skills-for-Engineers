@@ -1,4 +1,4 @@
-# Tính năng và kịch bản thuyết trình
+# Tính năng
 
 **Home IoT Monitoring & Alert System · CC02 Nhóm 8**
 
