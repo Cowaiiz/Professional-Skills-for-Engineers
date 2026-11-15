@@ -220,3 +220,9 @@ footer { margin-top: 17px; color: var(--muted); font-size: 12px; }
 .camera-source [aria-pressed="true"] { background: #164f55; color: white; border-color: #164f55; }
 #camera-video { background: #13283d; object-fit: contain; }
 #camera-video[hidden] { display: none; }
+
+.camera-preview { position: relative; }
+#camera-overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+#camera-live-status[data-state="alert"] { background: #f9e7eb; color: #9c3045; border-radius: 6px; padding: 8px; }
+#live-camera-events { list-style: none; margin: 6px 0; padding: 0; }
+#live-camera-events li { background: #f9e7eb; color: #782337; border-radius: 6px; padding: 7px; font-size: 13px; margin-top: 4px; }

@@ -119,9 +119,13 @@ const retryButton = element('camera-retry');
 const video = element('camera-video');
 let stream = null;
 let cameraRequest = 0;
+let poseSession = null;
 
 function stopLive() {
   cameraRequest += 1;
+  poseSession?.abort();
+  poseSession = null;
+  element('camera-live-status').removeAttribute('data-state');
   if (stream) {
     stream.getTracks().forEach(track => track.stop());
     stream = null;
@@ -165,7 +169,6 @@ async function startLive() {
     video.hidden = false;
     await video.play();
     if (request !== cameraRequest) return;
-    element('camera-live-status').textContent = 'Your camera is on. Switch to Demo camera to turn it off.';
     for (const track of capture.getVideoTracks()) {
       track.addEventListener('ended', () => {
         if (stream !== capture) return;
@@ -173,6 +176,7 @@ async function startLive() {
         showCameraError('The camera disconnected. Reconnect it and retry.');
       }, {once: true});
     }
+    void detectLiveFalls(request);
   } catch (error) {
     if (request !== cameraRequest) return;
     stopLive();
@@ -182,6 +186,35 @@ async function startLive() {
       showCameraError('No camera was found on this device.');
     } else {
       showCameraError('Could not start the camera. Close other apps using it and retry.');
+    }
+  }
+}
+
+async function detectLiveFalls(request) {
+  const status = element('camera-live-status');
+  const session = new AbortController();
+  poseSession = session;
+  status.textContent = 'Loading the on-device pose model…';
+  try {
+    const {startFallPreview} = await import('./camera-live-fall.js');
+    if (session.signal.aborted) return;
+    await startFallPreview({
+      video,
+      canvas: element('camera-overlay'),
+      status,
+      signal: session.signal,
+      onAlert: () => {
+        const list = element('live-camera-events');
+        const item = document.createElement('li');
+        item.textContent = new Date().toLocaleTimeString() + ' · Possible fall detected';
+        list.prepend(item);
+        if (list.children.length > 8) list.lastElementChild.remove();
+      },
+    });
+  } catch {
+    if (request === cameraRequest) {
+      status.textContent = 'Pose model unavailable. Webcam preview is active; switch to Demo camera and retry.';
+      status.dataset.state = 'limited';
     }
   }
 }

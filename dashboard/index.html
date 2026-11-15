@@ -47,10 +47,14 @@
     <ol id="camera-events" aria-label="Camera demo events"></ol>
     </div>
     <div id="camera-live" hidden>
+      <div class="camera-preview">
       <video id="camera-video" class="camera-frame" autoplay muted playsinline hidden aria-label="Local webcam preview"></video>
+        <canvas id="camera-overlay" aria-hidden="true"></canvas>
+      </div>
       <p id="camera-live-status" class="camera-state" role="status"></p>
-      <p class="meta">Video stays in this browser. Detection and alerts use the simulated scenes.</p>
+      <p class="meta">Keep one person fully in view, including the floor. Video and fall alerts stay in this browser.</p>
       <button type="button" id="camera-retry" hidden>Retry camera</button>
+      <ol id="live-camera-events" aria-label="Local fall events" aria-live="polite"></ol>
     </div>
   </section>
   <section class="panel delivery" aria-labelledby="notification-title">

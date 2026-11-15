@@ -23,7 +23,7 @@ def create_server(store, health, host='127.0.0.1', port=8080):
             self.send_header('Content-Length', str(len(raw)))
             self.send_header('Cache-Control', 'no-store')
             self.send_header('X-Content-Type-Options', 'nosniff')
-            self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; frame-ancestors 'none'")
+            self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; connect-src 'self'; frame-ancestors 'none'")
             self.end_headers()
             try: self.wfile.write(raw)
             except (BrokenPipeError, ConnectionResetError): pass
@@ -54,7 +54,9 @@ def create_server(store, health, host='127.0.0.1', port=8080):
             else: return self.respond({'error':'Not found'},404)
             root = (ROOT/'dashboard').resolve();file = (root/filename).resolve()
             if not file.is_relative_to(root) or not file.is_file(): return self.respond({'error':'Not found'},404)
-            return self.respond(file.read_bytes(),content_type=(mimetypes.guess_type(file.name)[0] or 'application/octet-stream')+'; charset=utf-8')
+            asset_types = {'.mjs': 'text/javascript', '.js': 'text/javascript', '.wasm': 'application/wasm'}
+            content_type = asset_types.get(file.suffix) or mimetypes.guess_type(file.name)[0] or 'application/octet-stream'
+            return self.respond(file.read_bytes(), content_type=content_type)
         @staticmethod
         def alert_id(raw):
             try:

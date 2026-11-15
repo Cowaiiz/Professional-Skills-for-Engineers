@@ -26,7 +26,15 @@ Các cảnh do trình duyệt tạo từ vị trí, dáng người và độ nh�
 
 ## Xem webcam của bạn
 
-Bấm **My camera** và cấp quyền camera. Webcam chỉ hiện trong trình duyệt của bạn. Chọn **Demo camera** để tắt webcam và chạy các ca mô phỏng. Nếu trình duyệt nhúng không cho phép, mở địa chỉ trực tiếp trong Edge hoặc Chrome.
+1. Mở địa chỉ HTTPS hoặc localhost trực tiếp trong Edge hoặc Chrome. Bấm **My camera** rồi cấp quyền.
+2. Đặt camera cố định nhìn ngang. Cho một người đứng trong khung, thấy đủ vai, hông, đầu gối, bàn chân và phần sàn. Chờ **Fall detection ready**.
+3. Chờ đường nối tư thế xuất hiện. Khi quan sát cho thấy tư thế chuyển nhanh từ đứng sang nằm thấp và kéo dài ít nhất ba giây, dashboard hiện **Possible fall**. Nếu bị khuất hoặc có nhiều người, dashboard yêu cầu chỉnh khung để có đủ dữ liệu.
+4. Khi tập, dùng video kiểm thử hoặc động tác có kiểm soát. Có thể thử ngồi trên ghế, nằm trên sofa hoặc bước ra khỏi khung để kiểm tra các cảnh khác.
+5. Chọn **Demo camera** để dừng webcam. Video và nhật ký té ngã webcam nằm trong phiên trình duyệt.
+
+Phần webcam dùng MediaPipe Pose Landmarker Lite. Quy tắc xử lý điểm khớp đã thử với chuỗi điểm mô phỏng gồm ngã nhanh, ngồi, nằm trên sofa, chuyển tư thế chậm, đứng dậy sớm và mất dữ liệu. Edge qua HTTPS đã tải model và vẽ điểm tư thế từ ảnh mẫu đưa vào webcam ảo. Chưa đo độ chính xác trên ca té ngã thật. Chế độ này đưa tín hiệu để kiểm tra thêm, không xác định tình trạng ngất hoặc chấn thương.
+
+[Tài liệu MediaPipe Pose Landmarker](https://developers.google.com/edge/mediapipe/solutions/vision/pose_landmarker?tab=Web)
 
 ## Chạy bản có 10 ca
 

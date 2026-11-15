@@ -13,7 +13,7 @@ py -3.11 -m tools.run_demo --scenario home_showcase
 
 Open **http://127.0.0.1:8080**. Keep the terminal open; Ctrl+C stops the three processes. Log files are in `logs/`. If the Python launcher is unavailable, use `python` after confirming that it points to Python 3.11 or newer.
 
-Select **My camera** and allow camera access to preview your device camera in the current browser. **Demo camera** switches back to the scripted test cases and stops the webcam. The project requests video only. The preview stays in your browser. Camera test events continue to use the simulated scenes.
+Select **My camera** and allow camera access to run local pose tracking and flag a **Possible fall**. Use one person, a fixed side-on view, and enough room to see shoulders through feet and the floor. **Demo camera** switches back to the scripted cases and stops the webcam. Live video and webcam events stay in the browser. See [webcam test steps](docs/test-case-camera.md).
 
 Use **Person enters**, **Possible fall**, or select one of ten **Camera test case** replays. See [camera cases and expected results](docs/test-case-camera.md). The **Phone notifications** panel shows local previews for high gas and node offline in the default configuration. See the [Vietnamese feature list and presentation guide](docs/tinh-nang-va-demo.md) and [Telegram setup](docs/telegram.md).
 
