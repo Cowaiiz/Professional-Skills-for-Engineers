@@ -215,3 +215,8 @@ footer { margin-top: 17px; color: var(--muted); font-size: 12px; }
 .camera-case-form select { max-width: 100%; min-width: 0; }
 .camera-case-form button { background: #164f55; color: white; border-color: #164f55; }
 .camera-actor-label { font: 700 12px "Segoe UI", sans-serif; paint-order: stroke; stroke: #13283d; stroke-width: 3px; }
+
+.camera-source { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.camera-source [aria-pressed="true"] { background: #164f55; color: white; border-color: #164f55; }
+#camera-video { background: #13283d; object-fit: contain; }
+#camera-video[hidden] { display: none; }

@@ -1,6 +1,6 @@
 # Test case camera cho buổi thuyết trình
 
-Trong dashboard Home IoT, cuộn đến **Living room camera**, chọn mục **Camera test case** rồi bấm **Run case**. Chờ dòng **Replay complete**. Mỗi lần chạy sẽ tạo lại cảnh và nhật ký của ca đó. **Reset** đưa khung hình về phòng trống.
+Trong dashboard Home IoT, cuộn đến **Living room camera**, chọn **Demo camera**, chọn mục **Camera test case** rồi bấm **Run case**. Chờ dòng **Replay complete**. Mỗi lần chạy sẽ tạo lại cảnh và nhật ký của ca đó. **Reset** đưa khung hình về phòng trống.
 
 | Ca | Tình huống | Kết quả mong đợi và đã quan sát trên Edge |
 |---|---|---|
@@ -23,6 +23,10 @@ Trong dashboard Home IoT, cuộn đến **Living room camera**, chọn mục **C
 - Bấm **Person enters** hoặc **Possible fall** để chạy nhanh ca 01 hoặc 03.
 
 Các cảnh do trình duyệt tạo từ vị trí, dáng người và độ nhìn rõ đã được lập sẵn. A và B là nhãn trong từng cảnh, không phải nhận diện danh tính. Hiện tượng ngất xỉu không thể được xác nhận từ các cảnh mô phỏng. Nhật ký camera và thông báo điện thoại là hai phần riêng. Telegram vẫn chỉ nhận sự kiện gas và node offline khi bật cấu hình gửi thật.
+
+## Xem webcam của bạn
+
+Bấm **My camera** và cấp quyền camera. Webcam chỉ hiện trong trình duyệt của bạn. Chọn **Demo camera** để tắt webcam và chạy các ca mô phỏng. Nếu trình duyệt nhúng không cho phép, mở địa chỉ trực tiếp trong Edge hoặc Chrome.
 
 ## Chạy bản có 10 ca
 

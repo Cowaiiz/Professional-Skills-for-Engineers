@@ -13,7 +13,12 @@
 <article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15a4 4 0 0 1 0-6m6 0a4 4 0 0 1 0 6M6 18a8 8 0 0 1 0-12m12 0a8 8 0 0 1 0 12"/><circle cx="12" cy="12" r="1"/></svg>MOTION</p><strong id="motion">—</strong><span>PIR sensor</span></article></section>
 <div class="demo-grid">
   <section class="panel camera" aria-labelledby="camera-title">
-    <div class="section-heading"><h2 id="camera-title">Living room camera</h2><span class="camera-badge">SIMULATED SCENE</span></div>
+    <div class="section-heading"><h2 id="camera-title">Living room camera</h2><span id="camera-badge" class="camera-badge">SIMULATED SCENE</span></div>
+    <div class="camera-source" role="group" aria-label="Camera source">
+      <button type="button" id="camera-mode-demo" aria-pressed="true">Demo camera</button>
+      <button type="button" id="camera-mode-live" aria-pressed="false">My camera</button>
+    </div>
+    <div id="camera-replay">
     <svg class="camera-frame" viewBox="0 0 560 245" role="img" aria-label="Animated diagram of a living room and its entry zone">
       <rect width="560" height="245" fill="#13283d"/>
       <path d="M0 155H560V245H0Z" fill="#284760"/>
@@ -40,6 +45,13 @@
     </form>
     <p class="camera-state" id="camera-status" role="status">Ready to replay a synthetic scene.</p>
     <ol id="camera-events" aria-label="Camera demo events"></ol>
+    </div>
+    <div id="camera-live" hidden>
+      <video id="camera-video" class="camera-frame" autoplay muted playsinline hidden aria-label="Local webcam preview"></video>
+      <p id="camera-live-status" class="camera-state" role="status"></p>
+      <p class="meta">Video stays in this browser. Detection and alerts use the simulated scenes.</p>
+      <button type="button" id="camera-retry" hidden>Retry camera</button>
+    </div>
   </section>
   <section class="panel delivery" aria-labelledby="notification-title">
     <div class="section-heading"><h2 id="notification-title">Phone notifications</h2><span id="telegram-mode">Loading…</span></div>

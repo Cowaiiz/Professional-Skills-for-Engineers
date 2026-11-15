@@ -112,3 +112,88 @@ element('camera-case-form').addEventListener('submit', event => {
 element('camera-entry').addEventListener('click', () => play('entry'));
 element('camera-fall').addEventListener('click', () => play('center_fall'));
 element('camera-reset').addEventListener('click', reset);
+
+const demoButton = element('camera-mode-demo');
+const liveButton = element('camera-mode-live');
+const retryButton = element('camera-retry');
+const video = element('camera-video');
+let stream = null;
+let cameraRequest = 0;
+
+function stopLive() {
+  cameraRequest += 1;
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+    stream = null;
+  }
+  video.srcObject = null;
+  video.hidden = true;
+}
+
+function showSource(live) {
+  demoButton.setAttribute('aria-pressed', String(!live));
+  liveButton.setAttribute('aria-pressed', String(live));
+  element('camera-replay').hidden = live;
+  element('camera-live').hidden = !live;
+  element('camera-badge').textContent = live ? 'LOCAL WEBCAM' : 'SIMULATED SCENE';
+}
+
+function showCameraError(message) {
+  element('camera-live-status').textContent = message;
+  retryButton.hidden = false;
+}
+
+async function startLive() {
+  stopLive();
+  reset();
+  showSource(true);
+  const request = cameraRequest;
+  retryButton.hidden = true;
+  if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
+    showCameraError('Open this link directly in Edge or Chrome over HTTPS, or use localhost.');
+    return;
+  }
+  element('camera-live-status').textContent = 'Allow camera access in your browser to start.';
+  try {
+    const capture = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
+    if (request !== cameraRequest) {
+      capture.getTracks().forEach(track => track.stop());
+      return;
+    }
+    stream = capture;
+    video.srcObject = stream;
+    video.hidden = false;
+    await video.play();
+    if (request !== cameraRequest) return;
+    element('camera-live-status').textContent = 'Your camera is on. Switch to Demo camera to turn it off.';
+    for (const track of capture.getVideoTracks()) {
+      track.addEventListener('ended', () => {
+        if (stream !== capture) return;
+        stopLive();
+        showCameraError('The camera disconnected. Reconnect it and retry.');
+      }, {once: true});
+    }
+  } catch (error) {
+    if (request !== cameraRequest) return;
+    stopLive();
+    if (error.name === 'NotAllowedError') {
+      showCameraError('Camera access was blocked. Allow it in browser site settings and retry.');
+    } else if (error.name === 'NotFoundError') {
+      showCameraError('No camera was found on this device.');
+    } else {
+      showCameraError('Could not start the camera. Close other apps using it and retry.');
+    }
+  }
+}
+
+function useDemo() {
+  stopLive();
+  showSource(false);
+}
+
+demoButton.addEventListener('click', useDemo);
+liveButton.addEventListener('click', () => {
+  if (liveButton.getAttribute('aria-pressed') === 'false') startLive();
+});
+retryButton.addEventListener('click', startLive);
+window.addEventListener('pagehide', useDemo);
