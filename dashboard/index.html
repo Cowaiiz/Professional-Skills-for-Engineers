@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Home IoT Monitoring &amp; Alert System · Group 8</title><link rel="stylesheet" href="/assets/styles.css"><script src="/assets/app.js" defer></script>
+<script src="/assets/camera-demo.js" type="module"></script>
+<script src="/assets/notifications.js" defer></script></head>
+<body><header><div class="brand"><span class="brand-icon" aria-hidden="true">⌁</span> HOME IOT</div><div class="header-tools"><div class="course">CC02 · GROUP 8</div><button id="presentation" type="button" aria-pressed="false" aria-controls="activity"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg><span>Present</span></button></div></header>
+<main><section class="heading"><div><p class="eyebrow">LIVING ROOM</p><h1>Home IoT Monitoring &amp; Alert System</h1></div><div class="node"><label for="device">MONITORING NODE</label><select id="device" aria-label="Monitoring node"></select><p id="location">Waiting for backend</p><span id="source" class="badge">NO DATA</span></div></section>
+<div class="connection-row"><div id="connection" role="status" class="connection">Connecting to backend…</div><p id="last-seen" class="meta">No telemetry yet</p></div>
+<section class="cards" aria-label="Latest sensor readings">
+<article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14V5a3 3 0 0 1 6 0v9a5 5 0 1 1-6 0Z"/><path d="M12 8v9"/></svg>TEMPERATURE</p><strong id="temperature">—</strong><span id="temperature-status">No data</span></article>
+<article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-3 5-7 8.3-7 13a7 7 0 0 0 14 0c0-4.7-4-8-7-13Z"/><path d="M9 16a3 3 0 0 0 3 3"/></svg>HUMIDITY</p><strong id="humidity">—</strong><span id="humidity-status">No data</span></article>
+<article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9c3-4 5 4 9 0s6-2 9 0M3 15c3-4 5 4 9 0s6-2 9 0"/></svg>GAS RESPONSE</p><strong id="gas">—</strong><span id="gas-status">Raw ADC · not ppm</span></article>
+<article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16M7 21V3h10v18M14 13h.01"/></svg>DOOR</p><strong id="door">—</strong><span>Magnetic contact</span></article>
+<article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15a4 4 0 0 1 0-6m6 0a4 4 0 0 1 0 6M6 18a8 8 0 0 1 0-12m12 0a8 8 0 0 1 0 12"/><circle cx="12" cy="12" r="1"/></svg>MOTION</p><strong id="motion">—</strong><span>PIR sensor</span></article></section>
+<div class="demo-grid">
+  <section class="panel camera" aria-labelledby="camera-title">
+    <div class="section-heading"><h2 id="camera-title">Living room camera</h2><span class="camera-badge">SIMULATED SCENE</span></div>
+    <svg class="camera-frame" viewBox="0 0 560 245" role="img" aria-label="Animated diagram of a living room and its entry zone">
+      <rect width="560" height="245" fill="#13283d"/>
+      <path d="M0 155H560V245H0Z" fill="#284760"/>
+      <path d="M0 209h560M0 230h560M119 155l-41 90M228 155l-10 90M345 155l14 90M455 155l45 90" stroke="#496579"/>
+      <rect x="32" y="33" width="96" height="127" rx="3" fill="#0e1c2e" stroke="#6387a0" stroke-width="3"/>
+      <path d="M47 146V49L103 59v92Z" fill="#245171"/><circle cx="91" cy="103" r="3" fill="#d5f3f3"/>
+      <rect x="128" y="143" width="83" height="71" rx="6" fill="#1d5362" stroke="#78d5ca" stroke-dasharray="6 6"/>
+      <text x="140" y="207" fill="#a4eee3" font-size="12">ENTRY ZONE</text>
+      <rect x="375" y="106" width="147" height="55" rx="12" fill="#547389"/>
+      <rect x="356" y="140" width="182" height="39" rx="10" fill="#7391a6"/>
+      <path d="M373 177v12m146-12v12" stroke="#9db6c9" stroke-width="6"/>
+      <path d="M390 70h139" stroke="#527790"/>
+      <defs><g id="camera-figure" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">
+        <circle cx="0" cy="-56" r="9" fill="currentColor" stroke="none"/>
+        <path d="M0 -42v24m-16-11 16-11 15 11M0-18l-11 18m11-18 12 18"/>
+      </g></defs>
+      <g id="camera-actors"></g>
+    </svg>
+    <div class="camera-controls"><button type="button" id="camera-entry">Person enters</button><button type="button" id="camera-fall">Possible fall</button><button type="button" id="camera-reset">Reset</button></div>
+    <form id="camera-case-form" class="camera-case-form">
+      <label for="camera-case">Camera test case</label>
+      <select id="camera-case"></select>
+      <button type="submit">Run case</button>
+    </form>
+    <p class="camera-state" id="camera-status" role="status">Ready to replay a synthetic scene.</p>
+    <ol id="camera-events" aria-label="Camera demo events"></ol>
+  </section>
+  <section class="panel delivery" aria-labelledby="notification-title">
+    <div class="section-heading"><h2 id="notification-title">Phone notifications</h2><span id="telegram-mode">Loading…</span></div>
+    <p id="telegram-detail" class="meta">Gas alerts and device offline events.</p>
+    <ol id="telegram-events"><li>Waiting for the first notification.</li></ol>
+  </section>
+</div>
+<div class="overview"><section class="panel history"><div class="section-heading"><h2>Recent measurements</h2><button id="export" type="button" title="Download up to 300 recent readings" disabled><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg>Export CSV</button></div>
+<section class="charts"><article><h3>Temperature <small>°C</small></h3><canvas id="temperature-chart" aria-label="Temperature history" role="img"></canvas></article><article><h3>Humidity <small>%</small></h3><canvas id="humidity-chart" aria-label="Humidity history" role="img"></canvas></article><article><h3>Gas response <small>ADC</small></h3><canvas id="gas-chart" aria-label="Gas history" role="img"></canvas></article></section></section>
+<section class="panel alerts-panel"><div class="section-heading"><h2>Alerts</h2><label class="filter">Status <select id="alert-filter"><option value="all">All alerts</option><option value="open">Active</option><option value="unseen">Needs acknowledgement</option><option value="cleared">Cleared</option></select></label></div><p class="meta">Acknowledgement records that an alert was seen. Readings determine when it clears.</p><div id="alerts" aria-live="polite">Waiting for readings…</div></section></div>
+<section id="activity" class="panel activity"><div class="section-heading"><h2>Event timeline</h2><label class="filter">Show <select id="event-filter"><option value="ALL">All events</option><option value="CRITICAL">Critical</option><option value="WARNING">Warnings</option><option value="INFO">Information</option></select></label></div><div id="events" class="timeline">No events yet</div></section>
+<dialog id="incident" aria-labelledby="incident-title">
+  <div class="incident-heading">
+    <div><p class="incident-kicker">INCIDENT REVIEW</p><h2 id="incident-title"></h2></div>
+    <form method="dialog"><button type="submit">Close</button></form>
+  </div>
+  <p id="incident-status" class="incident-status"></p>
+  <dl id="incident-facts" class="incident-facts"></dl>
+  <section class="handover" aria-labelledby="handover-title">
+    <h3 id="handover-title">Shift handover</h3>
+    <ul id="handover-notes" class="handover-notes"></ul>
+    <form id="handover-form">
+      <label for="handover-body">What was checked or should happen next?</label>
+      <textarea id="handover-body" rows="2" maxlength="400" required></textarea>
+      <div class="handover-actions"><button id="handover-save" type="submit" disabled>Add note</button><span id="handover-status" role="status"></span></div>
+    </form>
+  </section>
+  <h3>Events near activation</h3>
+  <p class="meta">Latest logged events within one minute of activation.</p>
+  <ul id="incident-events" class="incident-events"></ul>
+</dialog>
+<footer>Student prototype · Gas displayed in raw ADC counts · Timestamps shown in local time</footer></main></body></html>

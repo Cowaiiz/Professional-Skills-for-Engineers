@@ -1,0 +1,40 @@
+test_TC10_transport_disconnect_reconnect (test_system.IntegrationTests.test_TC10_transport_disconnect_reconnect) ... ok
+test_api_limits_and_origin (test_system.IntegrationTests.test_api_limits_and_origin) ... ok
+test_disabling_simulated_delivery_cancels_an_unsent_item (test_system.IntegrationTests.test_disabling_simulated_delivery_cancels_an_unsent_item) ... ok
+test_handover_notes_are_validated_and_retry_safe (test_system.IntegrationTests.test_handover_notes_are_validated_and_retry_safe) ... ok
+test_live_notification_requires_opt_in_for_simulation (test_system.IntegrationTests.test_live_notification_requires_opt_in_for_simulation) ... ok
+test_malformed_does_not_kill_mqtt_worker (test_system.IntegrationTests.test_malformed_does_not_kill_mqtt_worker) ... ok
+test_mqtt_database_web_alert_ack (test_system.IntegrationTests.test_mqtt_database_web_alert_ack) ... ok
+test_notification_preview_records_only_transitions (test_system.IntegrationTests.test_notification_preview_records_only_transitions) ... ok
+test_protocol_fragmented_frame (test_system.IntegrationTests.test_protocol_fragmented_frame) ... ok
+test_publish_only_client_keeps_connection_alive (test_system.IntegrationTests.test_publish_only_client_keeps_connection_alive) ... ok
+test_TC01_normal (test_system.StoreTests.test_TC01_normal) ... ok
+test_TC02_motion_and_clear (test_system.StoreTests.test_TC02_motion_and_clear) ... ok
+test_TC03_door (test_system.StoreTests.test_TC03_door) ... ok
+test_TC04_door_repeated (test_system.StoreTests.test_TC04_door_repeated) ... ok
+test_TC05_temperature_hysteresis (test_system.StoreTests.test_TC05_temperature_hysteresis) ... ok
+test_TC06_gas_activation_and_clear (test_system.StoreTests.test_TC06_gas_activation_and_clear) ... ok
+test_TC07_missing_field (test_system.StoreTests.test_TC07_missing_field) ... ok
+test_TC08_wrong_types (test_system.StoreTests.test_TC08_wrong_types) ... ok
+test_TC09_invalid_json (test_system.StoreTests.test_TC09_invalid_json) ... ok
+test_TC11_timeout_once (test_system.StoreTests.test_TC11_timeout_once) ... ok
+test_TC12_reconnect (test_system.StoreTests.test_TC12_reconnect) ... ok
+test_TC13_combined (test_system.StoreTests.test_TC13_combined) ... ok
+test_TC14_noise (test_system.StoreTests.test_TC14_noise) ... ok
+test_TC15_10000_normal_samples (test_system.StoreTests.test_TC15_10000_normal_samples) ... ok
+test_ack_not_clear_and_persistence (test_system.StoreTests.test_ack_not_clear_and_persistence) ... ok
+test_duplicate_out_of_order_no_heartbeat (test_system.StoreTests.test_duplicate_out_of_order_no_heartbeat) ... ok
+test_gap_resets_confirmation (test_system.StoreTests.test_gap_resets_confirmation) ... ok
+test_nan_and_timestamp_rejected (test_system.StoreTests.test_nan_and_timestamp_rejected) ... ok
+test_null_is_fault_not_normal_or_clear (test_system.StoreTests.test_null_is_fault_not_normal_or_clear) ... ok
+test_old_boot_lwt_ignored (test_system.StoreTests.test_old_boot_lwt_ignored) ... ok
+test_old_boot_telemetry_ignored (test_system.StoreTests.test_old_boot_telemetry_ignored) ... ok
+test_retained_and_mismatched_device (test_system.StoreTests.test_retained_and_mismatched_device) ... ok
+test_warmup_does_not_trigger_or_clear (test_system.StoreTests.test_warmup_does_not_trigger_or_clear) ... ok
+test_mocked_telegram_acceptance_and_failure (test_telegram.TelegramTransportTests.test_mocked_telegram_acceptance_and_failure) ... ok
+
+----------------------------------------------------------------------
+Ran 34 tests in 21.169s
+
+OK
+Portable C++ rule tests passed.

@@ -1,0 +1,10 @@
+flowchart TB
+  S["New sensor sample"] --> V{"Valid and ready?"}
+  V -->|No| F["Fault transition; preserve active alert"]
+  V -->|Yes| A{"Alert already active?"}
+  A -->|No| H{"Above high for three samples?"}
+  H -->|Yes| ON["Activate once; record event and alert"]
+  H -->|No| WAIT["Wait; reset count if condition breaks"]
+  A -->|Yes| L{"Below clear for three samples?"}
+  L -->|Yes| OFF["Clear once; retain history"]
+  L -->|No| KEEP["Preserve active alert"]

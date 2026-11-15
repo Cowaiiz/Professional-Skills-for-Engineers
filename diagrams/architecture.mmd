@@ -1,0 +1,11 @@
+flowchart TB
+  subgraph Room
+    S["DHT22 / MQ-2 / PIR / Reed"] --> E["ESP32: sample and local rules"]
+    E --> A["Buzzer and three LEDs"]
+  end
+  E -->|"Wi-Fi / MQTT"| M["MQTT broker"]
+  SIM["Simulator: alternative publisher"] --> M
+  M --> B["Python: validate and evaluate"]
+  B <--> D[("SQLite history and state")]
+  B -->|"HTTP API"| UI["Dashboard: values, charts, alerts"]
+  UI -->|"Acknowledge"| B

@@ -1,0 +1,9 @@
+flowchart TB
+  USB["Regulated USB supply"] --> E["Classic ESP32-WROOM DevKit"]
+  D["DHT22: DATA with 3.3 V pull-up"] -->|GPIO4| E
+  M["MQ-2 AO: 10k / 15k divider"] -->|"GPIO34 / ADC1"| E
+  P["PIR: verified 3.3 V output"] -->|GPIO27| E
+  R["Reed contact to ground"] -->|"GPIO26 / pull-up"| E
+  E -->|GPIO25| B["Transistor driver and active buzzer"]
+  E -->|"GPIO18 / 19 / 23"| L["Green / yellow / red LEDs; 330 ohm each"]
+  E --> W["Wi-Fi radio to laptop broker"]

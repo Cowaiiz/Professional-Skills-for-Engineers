@@ -1,0 +1,11 @@
+flowchart TB
+  N["ESP32 or simulator"] --> T["home/device01/telemetry"]
+  N --> S["home/device01/status"]
+  W["Broker last will"] --> S
+  T --> B["Backend canonical event engine"]
+  S --> B
+  N --> E["home/device01/event"]
+  N --> A["home/device01/alert"]
+  E --> O["Optional diagnostic observer"]
+  A --> O
+  B --> DB[("SQLite: one canonical writer")]

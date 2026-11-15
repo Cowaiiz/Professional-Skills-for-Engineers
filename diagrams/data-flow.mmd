@@ -1,0 +1,10 @@
+flowchart TB
+  P["Telemetry JSON"] --> V{"Valid schema and device?"}
+  V -->|No| R["Bounded rejection log"]
+  V -->|Yes| Q{"New boot/sequence sample?"}
+  Q -->|No| I["Ignore; no heartbeat refresh"]
+  Q -->|Yes| T["Store reading and refresh last seen"]
+  T --> E["Evaluate state transitions"]
+  E --> DB[("Events, alerts, device state")]
+  DB --> API["HTTP snapshot and history"]
+  API --> UI["Dashboard"]

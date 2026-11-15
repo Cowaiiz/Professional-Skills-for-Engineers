@@ -1,0 +1,7 @@
+{
+  "mqtt": {"host": "127.0.0.1", "port": 1883, "username": "", "password": "", "prefix": "home"},
+  "web": {"host": "127.0.0.1", "port": 8080},
+  "database": "backend/database/home.db",
+  "rules": {"temperature_high": 35.0, "temperature_clear": 33.0, "gas_high": 2000, "gas_clear": 1600, "confirm_samples": 3, "digital_samples": 2, "offline_seconds": 20, "max_sample_gap": 10},
+  "devices": {"device01": {"name": "Home sensor node", "location": "Living room"}}
+}
