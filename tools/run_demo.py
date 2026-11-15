@@ -49,7 +49,11 @@ def main():
             try:
                 with local_http.open(url+'/api/health',timeout=1) as r:ready=json.load(r)['mqtt_connected']
                 if ready:break
-            except OSError:pass
+            except urllib.error.HTTPError as exc:
+                if exc.code == 401 and (ROOT/'auth.local.json').is_file():
+                    break
+            except OSError:
+                pass
             if time.monotonic()>deadline:raise RuntimeError('Backend/MQTT startup timed out; inspect logs/ and local firewall/port settings.')
             time.sleep(.2)
         start('simulator','simulator.device_simulator','--scenario',args.scenario)

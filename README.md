@@ -19,6 +19,17 @@ Use **Person enters**, **Possible fall**, or select one of ten **Camera test cas
 
 `home_showcase` runs gas and temperature alerts, recovery and one telemetry pause. See [Windows verification](docs/test-results.md). The simulator also supports `normal`, `motion`, `door_open`, `high_temperature`, `high_gas`, `device_unstable`, `combined_event`, `noisy` and `sensor_fault`. Run one publisher for `device01` at a time.
 
+## Optional dashboard sign-in
+
+From the project folder, stop the demo and run the following command to create a local account. Enter your password at the prompts.
+
+```powershell
+py -3.11 -m tools.set_demo_login --username demo
+py -3.11 -m tools.run_demo --scenario home_showcase
+```
+
+Open the dashboard and sign in with the account you just created. The project keeps a salted password digest in `auth.local.json`, which is excluded from Git. Sign out from the header when you are done. The password gate is intended for a small demo. Public sharing should use an HTTPS gateway with secure cookies.
+
 ## Run each component separately
 
 Open three terminals in the project folder:

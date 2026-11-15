@@ -10,10 +10,11 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlsplit, parse_qs, unquote
 from common import mqtt
 from common.config import ROOT, load_config
+from backend.access import AccessGate, CSP
 from backend.store import Store
 from backend.telegram import run_notifications
 
-def create_server(store, health, host='127.0.0.1', port=8080):
+def create_server(store, health, host='127.0.0.1', port=8080, gate=None):
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, format, *args): pass
         def respond(self, payload, status=200, content_type='application/json'):
@@ -23,11 +24,13 @@ def create_server(store, health, host='127.0.0.1', port=8080):
             self.send_header('Content-Length', str(len(raw)))
             self.send_header('Cache-Control', 'no-store')
             self.send_header('X-Content-Type-Options', 'nosniff')
-            self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; connect-src 'self'; frame-ancestors 'none'")
+            self.send_header('Content-Security-Policy', CSP)
             self.end_headers()
             try: self.wfile.write(raw)
             except (BrokenPipeError, ConnectionResetError): pass
         def do_GET(self):
+            if gate and gate.handle(self):
+                return
             url = urlsplit(self.path);parts = url.path.strip('/').split('/')
             if url.path == '/api/notifications':
                 return self.respond({'mode': store.cfg['telegram']['mode'], 'items': store.notifications()})
@@ -56,7 +59,10 @@ def create_server(store, health, host='127.0.0.1', port=8080):
             if not file.is_relative_to(root) or not file.is_file(): return self.respond({'error':'Not found'},404)
             asset_types = {'.mjs': 'text/javascript', '.js': 'text/javascript', '.wasm': 'application/wasm'}
             content_type = asset_types.get(file.suffix) or mimetypes.guess_type(file.name)[0] or 'application/octet-stream'
-            return self.respond(file.read_bytes(), content_type=content_type)
+            body = file.read_bytes()
+            if gate and url.path == '/':
+                body = body.replace(b'id="logout-form" hidden', b'id="logout-form"', 1)
+            return self.respond(body, content_type=content_type)
         @staticmethod
         def alert_id(raw):
             try:
@@ -89,6 +95,8 @@ def create_server(store, health, host='127.0.0.1', port=8080):
             return self.respond_notes(store.add_handover_note(alert_id, request_id, body))
 
         def do_POST(self):
+            if gate and gate.handle(self):
+                return
             parts = urlsplit(self.path).path.strip('/').split('/')
             origin = self.headers.get('Origin')
             if origin and urlsplit(origin).netloc!=self.headers.get('Host'): return self.respond({'error':'Cross-origin denied'},403)
@@ -134,7 +142,9 @@ def main():
     if cfg['telegram']['mode'] == 'live':
         notifier = threading.Thread(target=run_notifications, args=(store, stop), daemon=True)
         notifier.start()
-    server=create_server(store,health,cfg['web']['host'],cfg['web']['port'])
+    account = ROOT / 'auth.local.json'
+    gate = AccessGate(account, ROOT / 'dashboard') if account.exists() else None
+    server=create_server(store,health,cfg['web']['host'],cfg['web']['port'],gate)
     print(f"Dashboard: http://{cfg['web']['host']}:{cfg['web']['port']}",flush=True)
     try: server.serve_forever()
     except KeyboardInterrupt: pass

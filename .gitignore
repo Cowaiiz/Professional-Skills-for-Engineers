@@ -13,3 +13,5 @@ broker/passwords
 *.log
 logs/
 broker/mosquitto-lan.conf
+
+auth.local.json
