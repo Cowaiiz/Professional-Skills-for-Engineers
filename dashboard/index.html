@@ -1,17 +1,21 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Home IoT Monitoring &amp; Alert System · Group 8</title><link rel="stylesheet" href="/assets/styles.css"><script src="/assets/app.js" defer></script>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Home IoT Monitoring &amp; Alert System</title><link rel="stylesheet" href="/assets/styles.css"><link rel="stylesheet" href="/assets/room-theme.css"><script src="/assets/app.js" defer></script>
+<link rel="stylesheet" href="/assets/measurements.css">
 <script src="/assets/camera-demo.js" type="module"></script>
 <script src="/assets/notifications.js" defer></script></head>
-<body><header><div class="brand"><span class="brand-icon" aria-hidden="true">⌁</span> HOME IOT</div><div class="header-tools"><form id="logout-form" hidden method="post" action="/logout"><button type="submit">Sign out</button></form><div class="course">CC02 · GROUP 8</div><button id="presentation" type="button" aria-pressed="false" aria-controls="activity"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg><span>Present</span></button></div></header>
+<body><header><div class="brand"><span class="brand-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7M5 9v12h14V9m-9 12v-6h4v6"/></svg></span> HOME IOT</div><form id="logout-form" hidden method="post" action="/logout"><button type="submit">Sign out</button></form></header>
 <main><section class="heading"><div><p class="eyebrow">LIVING ROOM</p><h1>Home IoT Monitoring &amp; Alert System</h1></div><div class="node"><label for="device">MONITORING NODE</label><select id="device" aria-label="Monitoring node"></select><p id="location">Waiting for backend</p><span id="source" class="badge">NO DATA</span></div></section>
 <div class="connection-row"><div id="connection" role="status" class="connection">Connecting to backend…</div><p id="last-seen" class="meta">No telemetry yet</p></div>
 <section class="cards" aria-label="Latest sensor readings">
-<article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14V5a3 3 0 0 1 6 0v9a5 5 0 1 1-6 0Z"/><path d="M12 8v9"/></svg>TEMPERATURE</p><strong id="temperature">—</strong><span id="temperature-status">No data</span></article>
-<article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-3 5-7 8.3-7 13a7 7 0 0 0 14 0c0-4.7-4-8-7-13Z"/><path d="M9 16a3 3 0 0 0 3 3"/></svg>HUMIDITY</p><strong id="humidity">—</strong><span id="humidity-status">No data</span></article>
-<article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9c3-4 5 4 9 0s6-2 9 0M3 15c3-4 5 4 9 0s6-2 9 0"/></svg>GAS RESPONSE</p><strong id="gas">—</strong><span id="gas-status">Raw ADC · not ppm</span></article>
-<article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16M7 21V3h10v18M14 13h.01"/></svg>DOOR</p><strong id="door">—</strong><span>Magnetic contact</span></article>
-<article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15a4 4 0 0 1 0-6m6 0a4 4 0 0 1 0 6M6 18a8 8 0 0 1 0-12m12 0a8 8 0 0 1 0 12"/><circle cx="12" cy="12" r="1"/></svg>MOTION</p><strong id="motion">—</strong><span>PIR sensor</span></article></section>
-<div class="demo-grid">
+<article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14V5a3 3 0 0 1 6 0v9a5 5 0 1 1-6 0Z"/><path d="M12 8v9"/></svg>TEMPERATURE</p><strong id="temperature">—</strong><span id="temperature-status">No data</span><button class="measurement-link" type="button" data-measurement="temperature" aria-label="View temperature history">History</button></article>
+<article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-3 5-7 8.3-7 13a7 7 0 0 0 14 0c0-4.7-4-8-7-13Z"/><path d="M9 16a3 3 0 0 0 3 3"/></svg>HUMIDITY</p><strong id="humidity">—</strong><span id="humidity-status">No data</span><button class="measurement-link" type="button" data-measurement="humidity" aria-label="View humidity history">History</button></article>
+<article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9c3-4 5 4 9 0s6-2 9 0M3 15c3-4 5 4 9 0s6-2 9 0"/></svg>GAS RESPONSE</p><strong id="gas">—</strong><span id="gas-status">Relative ADC reading</span><button class="measurement-link" type="button" data-measurement="gas" aria-label="View gas response history">History</button></article>
+<article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16M7 21V3h10v18M14 13h.01"/></svg>DOOR</p><strong id="door">—</strong><span>Magnetic contact</span><button class="measurement-link" type="button" data-measurement="door_open" aria-label="View door sensor history">History</button></article>
+<article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15a4 4 0 0 1 0-6m6 0a4 4 0 0 1 0 6M6 18a8 8 0 0 1 0-12m12 0a8 8 0 0 1 0 12"/><circle cx="12" cy="12" r="1"/></svg>MOTION</p><strong id="motion">—</strong><span>PIR sensor</span><button class="measurement-link" type="button" data-measurement="motion" aria-label="View motion sensor history">History</button></article></section>
+<div class="dashboard-panels">
+<div class="dashboard-column">
+<section class="panel history"><div class="section-heading"><h2>Recent measurements</h2><div class="measurement-actions"><button id="measurement-details" type="button" data-measurement="temperature">View details</button><button id="export" type="button" title="Download up to 300 recent readings" disabled><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg>Export CSV</button></div></div>
+<section class="charts"><article><h3>Temperature <small>°C</small></h3><canvas id="temperature-chart" aria-label="Temperature history" role="img"></canvas></article><article><h3>Humidity <small>%</small></h3><canvas id="humidity-chart" aria-label="Humidity history" role="img"></canvas></article><article><h3>Gas response <small>ADC</small></h3><canvas id="gas-chart" aria-label="Gas history" role="img"></canvas></article></section></section>
   <section class="panel camera" aria-labelledby="camera-title">
     <div class="section-heading"><h2 id="camera-title">Living room camera</h2></div>
     <div class="camera-source" role="group" aria-label="Camera source">
@@ -56,16 +60,47 @@
     <p id="camera-live-status" class="camera-state" role="status"></p>
     <ol id="live-camera-events" aria-label="Local fall events" aria-live="polite"></ol>
   </section>
+</div>
+<div class="dashboard-column">
+<section class="panel alerts-panel"><div class="section-heading"><h2 id="alerts-title">Alerts</h2><label class="filter">Status <select id="alert-filter"><option value="all">All alerts</option><option value="open">Active</option><option value="unseen">Needs acknowledgement</option><option value="cleared">Cleared</option></select></label></div><p id="alert-scroll-hint" class="meta" hidden></p><div id="alerts" role="region" aria-labelledby="alerts-title" aria-describedby="alert-scroll-hint" aria-live="polite" tabindex="0">Waiting for readings…</div></section>
   <section class="panel delivery" aria-labelledby="notification-title">
     <div class="section-heading"><h2 id="notification-title">Phone notifications</h2><span id="telegram-mode">Loading…</span></div>
     <p id="telegram-detail" class="meta">Gas alerts and device offline events.</p>
     <ol id="telegram-events"><li>Waiting for the first notification.</li></ol>
   </section>
 </div>
-<div class="overview"><section class="panel history"><div class="section-heading"><h2>Recent measurements</h2><button id="export" type="button" title="Download up to 300 recent readings" disabled><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg>Export CSV</button></div>
-<section class="charts"><article><h3>Temperature <small>°C</small></h3><canvas id="temperature-chart" aria-label="Temperature history" role="img"></canvas></article><article><h3>Humidity <small>%</small></h3><canvas id="humidity-chart" aria-label="Humidity history" role="img"></canvas></article><article><h3>Gas response <small>ADC</small></h3><canvas id="gas-chart" aria-label="Gas history" role="img"></canvas></article></section></section>
-<section class="panel alerts-panel"><div class="section-heading"><h2>Alerts</h2><label class="filter">Status <select id="alert-filter"><option value="all">All alerts</option><option value="open">Active</option><option value="unseen">Needs acknowledgement</option><option value="cleared">Cleared</option></select></label></div><p class="meta">Acknowledgement records that an alert was seen. Readings determine when it clears.</p><div id="alerts" aria-live="polite">Waiting for readings…</div></section></div>
+</div>
 <section id="activity" class="panel activity"><div class="section-heading"><h2>Event timeline</h2><label class="filter">Show <select id="event-filter"><option value="ALL">All events</option><option value="CRITICAL">Critical</option><option value="WARNING">Warnings</option><option value="INFO">Information</option></select></label></div><div id="events" class="timeline">No events yet</div></section>
+<dialog id="measurement" aria-labelledby="measurement-title">
+  <div class="incident-heading">
+    <h2 id="measurement-title">Measurement details</h2>
+    <form method="dialog"><button type="submit">Close</button></form>
+  </div>
+  <div class="measurement-toolbar">
+    <label for="measurement-field">Sensor</label>
+    <select id="measurement-field" autofocus>
+      <option value="temperature">Temperature</option>
+      <option value="humidity">Humidity</option>
+      <option value="gas">Gas response</option>
+      <option value="door_open">Door</option>
+      <option value="motion">Motion</option>
+    </select>
+    <p id="measurement-summary" class="meta"></p>
+  </div>
+  <dl class="measurement-stats">
+    <div><dt>Latest valid reading</dt><dd id="measurement-latest">—</dd></div>
+    <div><dt id="measurement-stat-a-label">Minimum</dt><dd id="measurement-stat-a">—</dd></div>
+    <div><dt id="measurement-stat-b-label">Maximum</dt><dd id="measurement-stat-b">—</dd></div>
+  </dl>
+  <canvas id="measurement-chart" role="img" aria-label="Measurement history"></canvas>
+  <h3>Latest 20 samples</h3>
+  <div class="measurement-table-scroll" tabindex="0" aria-label="Recent measurement samples">
+    <table class="measurement-table">
+      <thead><tr><th scope="col">Received</th><th scope="col">Reading</th></tr></thead>
+      <tbody id="measurement-rows"></tbody>
+    </table>
+  </div>
+</dialog>
 <dialog id="incident" aria-labelledby="incident-title">
   <div class="incident-heading">
     <div><p class="incident-kicker">INCIDENT REVIEW</p><h2 id="incident-title"></h2></div>

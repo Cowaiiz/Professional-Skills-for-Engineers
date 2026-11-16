@@ -1,0 +1,86 @@
+:root {
+  color: #302722;
+  background: #f5eee5;
+  --muted: #65574d;
+  --line: #ded2c4;
+  --teal: #365a46;
+  --room-paper: #fffcf7;
+  --room-walnut: #33251e;
+  --room-accent: #754d37;
+}
+body {
+  min-height: 100vh;
+  background:
+    linear-gradient(#ac896b3d 1px, #fffdf580 1px 2px, transparent 2px) 0 0 / 116px 74px,
+    linear-gradient(90deg, #ac896b3d 1px, #fffdf580 1px 2px, transparent 2px) 0 0 / 116px 74px,
+    linear-gradient(155deg, #ede0d0, #f8f2e9 550px, #f5ede2);
+}
+header {
+  background: var(--room-walnut);
+  color: #fff8ed;
+  padding: 12px max(4vw, calc((100vw - 1180px) / 2));
+}
+.brand-icon { color: #492f22; background: #eed5b7; }
+.brand-icon .icon { width: 19px; height: 19px; }
+#logout-form button { color: #fff8ed; border-color: #b48c73; padding: 7px 12px; }
+#logout-form button:hover { background: #5f3e30; }
+.heading {
+  min-height: 200px;
+  padding: clamp(18px, 3vw, 34px);
+  margin-bottom: 16px;
+  background: linear-gradient(90deg, #302219 0%, #302219e8 38%, #30221945 100%),
+    url('/assets/room-backdrop.jpg') center 57% / cover;
+  box-shadow: 0 8px 22px #442d201b;
+}
+.heading > div:first-child { max-width: 595px; }
+.heading h1 { font-size: clamp(29px, 4vw, 49px); color: #fff9f0; }
+.eyebrow { color: #ecd1b5; font-size: 12px; }
+.node { padding: 12px; background: #302219ec; border: 1px solid #e6c5a255; border-radius: 11px; }
+.node label, .node p { color: #f7e7d5; }
+.badge { color: #314635; background: #e2eddb; }
+.cards article, .panel {
+  background: var(--room-paper);
+  box-shadow: 0 3px 13px #5036250b;
+}
+.cards article { border-top-color: #708766; }
+.cards article:nth-child(2) { border-top-color: #598083; }
+.cards article:nth-child(3) { border-top-color: #a36643; }
+.cards article:nth-child(n+4) { border-top-color: #ad8b6d; }
+.cards p .icon, .cards article:nth-child(n+4) .icon { color: var(--room-accent); }
+.charts article, .incident-facts div { background: #f4eee5; }
+button, select, #handover-body {
+  color: #392c24;
+  background: var(--room-paper);
+  border-color: #bda892;
+}
+button:hover { background: #eee1d2; }
+button:focus-visible, select:focus-visible { outline-color: #6f4f3c; }
+.review-link { color: #63442e; }
+#incident {
+  background: var(--room-paper);
+  color: #302722;
+  box-shadow: 0 14px 55px #35231957;
+}
+#incident::backdrop { background: #2e201bb0; }
+#handover-save { background: #395946; border-color: #395946; }
+.camera-source { background: #eee4d7; }
+.camera-source button { color: #5d4a3b; }
+.camera-source button:hover, #camera-open-file:hover { background: #e5d8c7; }
+.camera-source [aria-pressed="true"] { background: #3e5d48; color: white; }
+.camera-dataset-actions a, #camera-open-file { color: #365a46; }
+.camera-preview { background: #332922; }
+.camera-empty { background: radial-gradient(ellipse at top, #644d3d, #332922 75%); color: #f0dac4; }
+.camera-empty strong { color: #fff8ed; }
+.camera-empty-icon { color: #b2c5a6; }
+#telegram-mode { background: #e3ebdc; color: #34543f; }
+#telegram-events li { background: #f1e8dc; }
+#telegram-events strong { color: #694732; }
+
+@media (max-width: 670px) {
+  header { padding-inline: 4vw; }
+  .heading {
+    min-height: 0;
+    background-image: linear-gradient(90deg, #302219f5 0%, #30221996 100%), url('/assets/room-backdrop.jpg');
+  }
+  .node { max-width: 100%; }
+}

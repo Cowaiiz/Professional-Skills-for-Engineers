@@ -2,28 +2,146 @@
 const $ = id => document.getElementById(id);
 let selected = '', recentEvents = [], lastHistory = [], currentAlerts = [];
 let reviewing = null, pendingNote = null, noteSession = 0;
+let measurementTrigger = null, renderedAlertKey = '';
+const signals = {
+  temperature: {label: 'Temperature', unit: ' °C', color: '#af583b'},
+  humidity: {label: 'Humidity', unit: ' %', color: '#39847c'},
+  gas: {label: 'Gas response', unit: ' ADC', color: '#a66c23'},
+  door_open: {label: 'Door', states: ['Closed', 'Open'], color: '#82634e'},
+  motion: {label: 'Motion', states: ['Quiet', 'Detected'], color: '#5d744c'}
+};
 const text = (id, value) => { $(id).textContent = value; };
 const when = epoch => new Date(epoch * 1000).toLocaleString();
 const sensor = (value, unit = '') => value == null ? 'Unavailable' : `${Number(value).toFixed(unit === ' ADC' ? 0 : 1)}${unit}`;
 async function get(url) { const r = await fetch(url, {signal: AbortSignal.timeout(4000)}); if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }
-function lineChart(field, history, color) {
-  const canvas = $(field + '-chart'), ctx = canvas.getContext('2d');
-  const width = canvas.clientWidth, height = 138, ratio = window.devicePixelRatio || 1;
-  canvas.width = width * ratio; canvas.height = height * ratio; ctx.scale(ratio, ratio);
-  const rows = history.filter(r => Number.isFinite(r[field]) && (field !== 'gas' || r.gas_ready));
-  ctx.font = '12px Segoe UI'; ctx.fillStyle = '#465971';
-  if (!rows.length) { ctx.fillText('Waiting for valid measurements', 10, 65); return; }
-  const min = Math.min(...rows.map(r => r[field])), max = Math.max(...rows.map(r => r[field]));
-  const pad = Math.max((max-min)*0.15, field === 'gas' ? 30 : 1), low = min-pad, high = max+pad;
-  const first = history[0].received_at, last = history[history.length-1].received_at;
-  const x = t => 42+(t-first)/Math.max(last-first,1)*(width-52), y = v => 12+(high-v)/(high-low)*96;
-  for(let i=0;i<3;i++) { const v=low+(high-low)*i/2, py=y(v); ctx.strokeStyle='#e2e9f1';ctx.beginPath();ctx.moveTo(40,py);ctx.lineTo(width-5,py);ctx.stroke();ctx.fillText(v.toFixed(0),0,py+4); }
-  ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();let started=false, previous=null;
-  for(const row of history) { if(!Number.isFinite(row[field]) || (field==='gas'&&!row.gas_ready)) {started=false;previous=null;continue;}if(previous!==null&&row.received_at-previous>10)started=false; if(!started)ctx.moveTo(x(row.received_at),y(row[field]));else ctx.lineTo(x(row.received_at),y(row[field]));started=true;previous=row.received_at; } ctx.stroke();
-  if(rows.length===1){ctx.beginPath();ctx.arc(x(rows[0].received_at),y(rows[0][field]),3,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();}
-  ctx.fillStyle='#465971';ctx.fillText(new Date(first*1000).toLocaleTimeString(),40,130);ctx.textAlign='right';ctx.fillText(new Date(last*1000).toLocaleTimeString(),width-3,130);ctx.textAlign='left';
+function measurementValue(row, field) {
+  const value = row[field];
+  if (field === 'gas' && !row.gas_ready) return null;
+  if (signals[field].states) {
+    if (value === true || value === 1) return 1;
+    if (value === false || value === 0) return 0;
+    return null;
+  }
+  return Number.isFinite(value) ? value : null;
 }
-function drawCharts() { ['temperature','humidity','gas'].forEach((f,i)=>lineChart(f,lastHistory,['#027c73','#2968c9','#a75518'][i])); }
+
+function formatMeasurement(field, value) {
+  const info = signals[field];
+  return value == null ? 'Unavailable' : info.states ? info.states[value] : sensor(value, info.unit);
+}
+
+function lineChart(canvas, field, history) {
+  const info = signals[field];
+  const width = canvas.clientWidth, height = canvas.clientHeight, ratio = window.devicePixelRatio || 1;
+  if (!width || !height) return;
+  canvas.width = width * ratio;
+  canvas.height = height * ratio;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(ratio, ratio);
+  const samples = history.map(row => ({time: row.received_at, value: measurementValue(row, field)}));
+  const valid = samples.filter(row => row.value !== null);
+  ctx.font = '12px Segoe UI';
+  ctx.fillStyle = '#6e5547';
+  if (!valid.length) {
+    ctx.fillText('No valid readings yet', 10, height / 2);
+    return;
+  }
+  const min = Math.min(...valid.map(row => row.value)), max = Math.max(...valid.map(row => row.value));
+  const padding = Math.max((max - min) * 0.15, field === 'gas' ? 30 : 1);
+  const low = info.states ? -0.15 : min - padding;
+  const high = info.states ? 1.15 : max + padding;
+  const first = samples[0].time, last = samples.at(-1).time;
+  const gutter = info.states ? 62 : 42;
+  const x = time => gutter + (time - first) / Math.max(last - first, 1) * (width - gutter - 10);
+  const y = value => 12 + (high - value) / (high - low) * (height - 42);
+  for (const value of info.states ? [0, 1] : [low, (high + low) / 2, high]) {
+    const py = y(value);
+    ctx.strokeStyle = '#e7dacf';
+    ctx.beginPath();
+    ctx.moveTo(gutter - 2, py);
+    ctx.lineTo(width - 5, py);
+    ctx.stroke();
+    ctx.fillText(info.states ? info.states[value] : value.toFixed(0), 0, py + 4);
+  }
+  ctx.strokeStyle = info.color;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  let previous = null;
+  for (const {time, value} of samples) {
+    if (value === null) {
+      previous = null;
+      continue;
+    }
+    if (!previous || time - previous.time > 10) ctx.moveTo(x(time), y(value));
+    else {
+      if (info.states) ctx.lineTo(x(time), y(previous.value));
+      ctx.lineTo(x(time), y(value));
+    }
+    previous = {time, value};
+  }
+  ctx.stroke();
+  if (valid.length === 1) {
+    ctx.beginPath();
+    ctx.arc(x(valid[0].time), y(valid[0].value), 3, 0, Math.PI * 2);
+    ctx.fillStyle = info.color;
+    ctx.fill();
+  }
+  ctx.fillStyle = '#6e5547';
+  ctx.fillText(new Date(first * 1000).toLocaleTimeString(), gutter, height - 8);
+  if (last > first && width >= 205) {
+    ctx.textAlign = 'right';
+    ctx.fillText(new Date(last * 1000).toLocaleTimeString(), width - 3, height - 8);
+  }
+}
+
+function drawCharts() {
+  for (const field of ['temperature', 'humidity', 'gas']) {
+    lineChart($(field + '-chart'), field, lastHistory);
+  }
+}
+
+function renderMeasurement() {
+  const field = $('measurement-field').value;
+  const info = signals[field];
+  const valid = lastHistory.map(row => measurementValue(row, field)).filter(value => value !== null);
+  text('measurement-title', info.label + ' history');
+  const source = lastHistory.at(-1)?.source;
+  const origin = source === 'simulator' ? 'Simulated data' : source === 'esp32' ? 'ESP32 hardware' : '';
+  const count = lastHistory.length;
+  text('measurement-summary', count ? count + (count === 1 ? ' sample' : ' samples') +
+    (origin ? ' · ' + origin : '') : 'No history yet');
+  text('measurement-latest', formatMeasurement(field, valid.at(-1)));
+  text('measurement-stat-a-label', info.states ? 'Changes recorded' : 'Minimum');
+  text('measurement-stat-b-label', info.states ? 'Valid samples' : 'Maximum');
+  if (info.states) {
+    const changes = valid.filter((value, i) => i > 0 && value !== valid[i - 1]).length;
+    text('measurement-stat-a', changes);
+    text('measurement-stat-b', valid.length);
+  } else {
+    text('measurement-stat-a', valid.length ? formatMeasurement(field, Math.min(...valid)) : 'Unavailable');
+    text('measurement-stat-b', valid.length ? formatMeasurement(field, Math.max(...valid)) : 'Unavailable');
+  }
+  const table = $('measurement-rows');
+  const rows = lastHistory.slice(-20).reverse().map(row => {
+    const tr = document.createElement('tr');
+    const time = document.createElement('td'), reading = document.createElement('td');
+    time.textContent = when(row.received_at);
+    reading.textContent = field === 'gas' && !row.gas_ready ? 'Sensor not ready' :
+      formatMeasurement(field, measurementValue(row, field));
+    tr.append(time, reading);
+    return tr;
+  });
+  if (!rows.length) {
+    const row = document.createElement('tr'), cell = document.createElement('td');
+    cell.colSpan = 2;
+    cell.textContent = 'No samples recorded for this device yet.';
+    row.append(cell);
+    rows.push(row);
+  }
+  table.replaceChildren(...rows);
+  $('measurement-chart').setAttribute('aria-label', info.label + ' readings over time');
+  lineChart($('measurement-chart'), field, lastHistory);
+}
 function renderEvents() {
   $('events').replaceChildren();
   const rows=recentEvents.filter(e=>$('event-filter').value==='ALL'||e.severity===$('event-filter').value);
@@ -174,20 +292,40 @@ async function saveHandover(event) {
   }
 }
 
-function renderAlerts(rows) {
+function fitAlerts() {
   const list = $('alerts');
-  const focusedAction = list.contains(document.activeElement) ? document.activeElement.dataset.action : null;
-  list.replaceChildren();
+  const third = list.children[2];
+  list.style.maxHeight = list.children.length > 3
+    ? (third.offsetTop + third.offsetHeight) + 'px' : '';
+}
+
+const alertResize = new ResizeObserver(fitAlerts);
+
+function renderAlerts(rows, resetScroll = false) {
+  const list = $('alerts');
   const filter = $('alert-filter').value;
   const matches = rows.filter(alert => filter === 'all' ||
     (filter === 'open' && !alert.cleared_at) ||
     (filter === 'unseen' && !alert.acknowledged_at) ||
-    (filter === 'cleared' && Boolean(alert.cleared_at)));
+    (filter === 'cleared' && Boolean(alert.cleared_at)))
+    .sort((a, b) => b.opened_at - a.opened_at || b.id - a.id);
+  const key = JSON.stringify([filter, Boolean(rows.length), matches]);
+  if (renderedAlertKey === key && !resetScroll) return;
+  renderedAlertKey = key;
+  const scrollTop = resetScroll ? 0 : list.scrollTop;
+  const focusedAction = list.contains(document.activeElement) ? document.activeElement.dataset.action : null;
+  alertResize.disconnect();
+  list.replaceChildren();
+  const scrollHint = $('alert-scroll-hint');
+  scrollHint.hidden = matches.length < 4;
+  scrollHint.textContent = matches.length < 4 ? '' : 'Showing the 3 latest. Scroll for older alerts.';
+  list.tabIndex = matches.length > 3 ? 0 : -1;
   if (!matches.length) {
     list.textContent = rows.length ? 'No alerts match this filter.' : 'No threshold alerts recorded.';
+    fitAlerts();
     return;
   }
-  for (const alert of matches.slice(0, 12)) {
+  for (const alert of matches) {
     const box = document.createElement('article');
     box.className = 'alert ' + (alert.cleared_at ? 'cleared' : alert.event_type === 'GAS_ALERT' ? 'critical' : '');
     const title = document.createElement('strong');
@@ -232,17 +370,14 @@ function renderAlerts(rows) {
     box.append(title, info, actions);
     list.append(box);
   }
-  if (focusedAction) {
-    list.querySelector('[data-action="' + focusedAction + '"]')?.focus();
+  fitAlerts();
+  if (matches.length > 3) {
+    Array.from(list.children).slice(0, 3).forEach(box => alertResize.observe(box));
   }
-}
-
-function setPresentation(enabled) {
-  const button = $('presentation');
-  document.body.classList.toggle('presentation-mode', enabled);
-  button.setAttribute('aria-pressed', String(enabled));
-  button.querySelector('span').textContent = enabled ? 'Exit presentation' : 'Present';
-  drawCharts();
+  list.scrollTop = scrollTop;
+  if (focusedAction) {
+    list.querySelector('[data-action="' + focusedAction + '"]')?.focus({preventScroll: true});
+  }
 }
 
 function downloadHistory() {
@@ -282,6 +417,7 @@ async function refresh() {
     text('gas-status',!online?'STALE':!t.gas_ready?'NOT READY / WARMING UP':t.gas==null?'SENSOR FAULT':active.some(a=>a.event_type==='GAS_ALERT')?'CRITICAL ALERT':'Relative response · not ppm');
     $('export').disabled = !history.length;
     lastHistory=history;recentEvents=events;currentAlerts=d.alerts;drawCharts();renderEvents();renderAlerts(currentAlerts);
+    if ($('measurement').open) renderMeasurement();
     if ($('incident').open) renderIncident();
   } catch(error) { $('export').disabled = true; $('connection').className='connection error';text('connection','Backend unavailable · displayed readings are stale');for(const id of ['temperature-status','humidity-status','gas-status'])text(id,'STALE · backend unavailable'); }
   finally { setTimeout(refresh,2000); }
@@ -291,20 +427,26 @@ $('device').addEventListener('change', () => {
   $('export').disabled = true;
   lastHistory = [];
   currentAlerts = [];
+  renderAlerts(currentAlerts, true);
+  if ($('measurement').open) $('measurement').close();
   if ($('incident').open) $('incident').close();
 });
-$('presentation').addEventListener('click', () => {
-  setPresentation($('presentation').getAttribute('aria-pressed') !== 'true');
+for (const button of document.querySelectorAll('[data-measurement]')) {
+  button.addEventListener('click', () => {
+    measurementTrigger = button;
+    $('measurement-field').value = button.dataset.measurement;
+    $('measurement').showModal();
+    $('measurement-rows').closest('.measurement-table-scroll').scrollTop = 0;
+    renderMeasurement();
+  });
+}
+$('measurement-field').addEventListener('change', () => {
+  $('measurement-rows').closest('.measurement-table-scroll').scrollTop = 0;
+  renderMeasurement();
 });
-document.addEventListener('keydown', event => {
-  if (event.key !== 'Escape') return;
-  if ($('incident').open) {
-    event.preventDefault();
-    $('incident').close();
-  } else if ($('presentation').getAttribute('aria-pressed') === 'true') {
-    setPresentation(false);
-    $('presentation').focus();
-  }
+$('measurement').addEventListener('close', () => {
+  measurementTrigger?.focus({preventScroll: true});
+  measurementTrigger = null;
 });
 $('incident').addEventListener('close', () => {
   noteSession += 1;
@@ -313,8 +455,11 @@ $('incident').addEventListener('close', () => {
 });
 $('handover-form').addEventListener('submit', saveHandover);
 $('handover-body').addEventListener('input', updateSaveButton);
-$('alert-filter').addEventListener('change', () => renderAlerts(currentAlerts));
+$('alert-filter').addEventListener('change', () => renderAlerts(currentAlerts, true));
 $('export').addEventListener('click', downloadHistory);
 $('event-filter').addEventListener('change', renderEvents);
-window.addEventListener('resize', drawCharts);
+window.addEventListener('resize', () => {
+  drawCharts();
+  if ($('measurement').open) lineChart($('measurement-chart'), $('measurement-field').value, lastHistory);
+});
 refresh();

@@ -11,7 +11,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlsplit, parse_qs, unquote
 from common import mqtt
 from common.config import ROOT, load_config
-from backend.access import AccessGate, CSP
+from backend.access import AccessGate, CSP, SIGNUP_ENV, local_auth_enabled
 from backend.camera import CameraDataset, VIDEO_PREFIX
 from backend.store import Store
 from backend.telegram import run_notifications
@@ -166,7 +166,8 @@ def main():
         notifier = threading.Thread(target=run_notifications, args=(store, stop), daemon=True)
         notifier.start()
     account = ROOT / 'auth.local.json'
-    gate = AccessGate(account, ROOT / 'dashboard') if account.exists() else None
+    gate = (AccessGate(account, ROOT / 'dashboard', allow_signup=os.environ.get(SIGNUP_ENV) == '1')
+            if local_auth_enabled(ROOT) else None)
     server=create_server(store,health,cfg['web']['host'],cfg['web']['port'],gate)
     print(f"Dashboard: http://{cfg['web']['host']}:{cfg['web']['port']}",flush=True)
     try: server.serve_forever()

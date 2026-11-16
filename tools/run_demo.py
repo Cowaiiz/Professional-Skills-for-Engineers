@@ -6,6 +6,7 @@ import sys
 import time
 import urllib.request
 import json
+from backend.access import local_auth_enabled
 from common.config import ROOT, load_config
 from simulator.scenarios import SCENARIOS
 
@@ -50,7 +51,7 @@ def main():
                 with local_http.open(url+'/api/health',timeout=1) as r:ready=json.load(r)['mqtt_connected']
                 if ready:break
             except urllib.error.HTTPError as exc:
-                if exc.code == 401 and (ROOT/'auth.local.json').is_file():
+                if exc.code == 401 and local_auth_enabled(ROOT):
                     break
             except OSError:
                 pass

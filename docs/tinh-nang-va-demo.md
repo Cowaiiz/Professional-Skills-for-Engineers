@@ -11,7 +11,7 @@
 | Camera | **My camera** dùng webcam. **Dataset video** phát clip GMDCSA-24 từ thư viện hoặc tệp video trên máy. Hộp màu thể hiện đi, ngồi và nghi ngờ ngã. |
 | Thông báo điện thoại | Ghi một tin cho mỗi lần gas chuyển Active hoặc node chuyển offline. Mặc định là **Preview only**. Có thể bật gửi tới chat Telegram riêng đã liên kết. |
 | Xem lại và bàn giao | Lọc cảnh báo, mở Review để xem giá trị kích hoạt và thời gian phục hồi, thêm ghi chú có mốc thời gian lưu trong SQLite. |
-| Lịch sử và trình chiếu | Biểu đồ, dòng thời gian, CSV tối đa 300 mẫu gần nhất và nút Present. |
+| Lịch sử số đo | Bấm một thẻ số đo hoặc **View details** để mở biểu đồ và bảng dữ liệu gần đây. Có thể tải CSV và cuộn xem cảnh báo cũ. |
 
 Camera dùng MediaPipe và quy tắc chuyển động vai, hông trong trình duyệt. Nhật ký camera nằm trong phiên đang mở. Backend lưu dữ liệu cảm biến, cảnh báo và ghi chú.
 

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign up · Home IoT</title>
+  <link rel="stylesheet" href="/login.css">
+</head>
+<body>
+  <main class="shell">
+    <p class="identity">Home IoT</p>
+    <h1>Create an account</h1>
+    <form method="post" action="/signup">
+      <label for="signup-user">Username</label>
+      <input id="signup-user" name="username" autocomplete="username" minlength="3" maxlength="32"
+             autocapitalize="none" spellcheck="false" aria-describedby="username-hint" required>
+      <p class="hint" id="username-hint">Use 3–32 letters, numbers, hyphens or underscores.</p>
+      <label for="signup-password">Password</label>
+      <input id="signup-password" name="password" type="password" autocomplete="new-password"
+             minlength="14" maxlength="256" aria-describedby="password-hint" required>
+      <p class="hint" id="password-hint">Use at least 14 characters.</p>
+      <label for="signup-confirm">Confirm password</label>
+      <input id="signup-confirm" name="confirm" type="password" autocomplete="new-password"
+             minlength="14" maxlength="256" required>
+      <p class="feedback" role="status"><!-- auth-message --></p>
+      <button type="submit">Sign up</button>
+    </form>
+    <p class="auth-link">Already have an account? <a href="/login">Sign in</a></p>
+  </main>
+</body>
+</html>

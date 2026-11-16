@@ -2,6 +2,8 @@
 
 Living-room monitoring prototype for temperature, humidity, relative gas response, motion and door events. The Windows 11 software demo uses simulated sensor inputs. ESP32 bench verification remains open.
 
+The dashboard opens detailed readings from the sensor cards and keeps the latest three alerts visible while older alerts remain in the scrollable list. The room backdrop photo is by [Ksenia Chernaya on Pexels](https://www.pexels.com/photo/room-with-plants-and-sofa-4740485/).
+
 ## Start without hardware (Windows)
 
 Install Python 3.11 or newer, extract this entire folder, and open PowerShell **inside `home-iot-monitoring`**. No pip packages are required.
@@ -30,7 +32,7 @@ py -3.11 -m tools.run_demo --scenario home_showcase
 
 Open **Dataset video** in the dashboard. **Subject 1 / ADL / 13** shows walking and sitting. **Subject 4 / Fall / 07** is a fall example. The folders and labels are part of GMDCSA-24 under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Use the sign-in option below if you share access. The local file picker also works with the library disabled.
 
-## Optional dashboard sign-in
+## Optional dashboard accounts
 
 From the project folder, stop the demo and run the following command to create a local account. Enter your password at the prompts.
 
@@ -39,7 +41,9 @@ py -3.11 -m tools.set_demo_login --username demo
 py -3.11 -m tools.run_demo --scenario home_showcase
 ```
 
-Open the dashboard and sign in with the account you just created. The project keeps a salted password digest in `auth.local.json`, which is excluded from Git. Sign out from the header when you are done. The password gate is intended for a small demo. Public sharing should use an HTTPS gateway with secure cookies.
+Open the dashboard and sign in. The project keeps a salted password digest in `auth.local.json`, which is excluded from Git.
+
+To let people create their own accounts, set `$env:HOME_IOT_ALLOW_SIGNUP = '1'` before starting the app and choose **Create an account** on the sign-in page. This also works without a preconfigured demo account. Registered accounts use password digests in `accounts.local.db`, outside Git. Turning off registration keeps existing accounts active. Sign out from the header when you are done. Use the registration option for the demo with simulated data, and use an HTTPS gateway with secure cookies when sharing it.
 
 ## Run each component separately
 
