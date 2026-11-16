@@ -24,3 +24,4 @@
 - Replaced whole-frame camera borders with person-level boxes for standing, walking, sitting and a possible fall. Used the existing pose landmarks for box geometry and retained the fall rule.
 - Updated live and dataset fall detection to check the movement of shoulders and hips, including falls from a seated start. Replayed all 160 annotated clips against both rules and recorded a separate Subject 4 result.
 - Stream GMDCSA-24 clips from a configured data folder. The camera panel now has two sources, My camera and Dataset video.
+- Included two credited GMDCSA-24 sample videos so a fresh Git checkout or ZIP can run the camera demo immediately. A configured external library takes precedence for the full test set.

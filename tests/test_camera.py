@@ -1,9 +1,11 @@
 import json
+import os
 import tempfile
 import threading
 import unittest
 from http.client import HTTPConnection
 from pathlib import Path
+from unittest.mock import patch
 
 from backend.app import create_server
 from backend.camera import CameraDataset
@@ -33,8 +35,8 @@ class CameraTests(unittest.TestCase):
         cls.addClassCleanup(cls.thread.join)
         cls.addClassCleanup(cls.server.shutdown)
 
-    def request(self, path, method='GET', headers=None):
-        conn = HTTPConnection('127.0.0.1', self.server.server_port, timeout=4)
+    def request(self, path, method='GET', headers=None, server=None):
+        conn = HTTPConnection('127.0.0.1', (server or self.server).server_port, timeout=4)
         try:
             conn.request(method, path, headers=headers or {})
             response = conn.getresponse()
@@ -52,6 +54,35 @@ class CameraTests(unittest.TestCase):
              'title': 'Subject 4 · Fall 07', 'url': '/media/gmdcsa24/subject-4-fall-07.mp4'},
         ]})
         self.assertEqual(CameraDataset(None).clips, [])
+
+    def test_serves_bundled_clips_when_external_catalog_is_unavailable(self):
+        with tempfile.TemporaryDirectory() as empty_dir, patch.dict(os.environ):
+            for configured in (None, empty_dir):
+                with self.subTest(configured=configured):
+                    if configured is None:
+                        os.environ.pop('HOME_IOT_DATASET_DIR', None)
+                    else:
+                        os.environ['HOME_IOT_DATASET_DIR'] = configured
+                    with create_server(None, {}, port=0) as server:
+                        thread = threading.Thread(target=server.serve_forever, daemon=True)
+                        thread.start()
+                        try:
+                            status, _, body = self.request('/api/camera/clips', server=server)
+                            self.assertEqual(status, 200)
+                            clips = json.loads(body)['clips']
+                            self.assertEqual([clip['id'] for clip in clips], [
+                                'subject-1-adl-13', 'subject-4-fall-07',
+                            ])
+                            for clip in clips:
+                                status, headers, body = self.request(
+                                    clip['url'], headers={'Range': 'bytes=0-31'}, server=server,
+                                )
+                                self.assertEqual(status, 206)
+                                self.assertEqual(headers['Content-Type'], 'video/mp4')
+                                self.assertEqual(body[4:8], b'ftyp')
+                        finally:
+                            server.shutdown()
+                            thread.join()
 
     def test_writes_video_bytes_and_allows_head_without_body(self):
         url = '/media/gmdcsa24/subject-1-adl-08.mp4'

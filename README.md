@@ -15,7 +15,7 @@ py -3.11 -m tools.run_demo --scenario home_showcase
 
 Open **http://127.0.0.1:8080**. Keep the terminal open; Ctrl+C stops the three processes. Log files are in `logs/`. If the Python launcher is unavailable, use `python` after confirming that it points to Python 3.11 or newer.
 
-The camera panel has **My camera** and **Dataset video**. Use My camera to start your webcam, or select a hosted clip or local video under Dataset video. The same browser-based detector draws boxes for standing, walking, sitting and possible falls. Webcam footage, local files and camera detections are processed on the device. See [camera steps and GMDCSA-24 results](docs/test-case-camera.md).
+The camera panel has **My camera** and **Dataset video**. Use My camera to start your webcam. Under Dataset video, choose one of the two included demo clips or open your own video. The same browser-based detector draws boxes for standing, walking, sitting and possible falls. Webcam footage, local files and camera detections are processed on the device. See [camera steps and GMDCSA-24 results](docs/test-case-camera.md).
 
 The **Phone notifications** panel shows local previews for high gas and node offline by default. See the [Vietnamese feature list and presentation guide](docs/tinh-nang-va-demo.md) and [Telegram setup](docs/telegram.md).
 
@@ -23,14 +23,16 @@ The **Phone notifications** panel shows local previews for high gas and node off
 
 ## Host the GMDCSA-24 clip library
 
-Download and extract [GMDCSA-24 v2.1 by Alam et al.](https://doi.org/10.5281/zenodo.13354453). Point the app to the folder that contains `Subject 1` through `Subject 4`. The release contains 160 MP4 clips. The videos live on the server running the app.
+The Git checkout and ZIP include **Subject 1 / ADL / 13** (walking and sitting) and **Subject 4 / Fall / 07** (a fall). Both appear under **Suggested clips** on the first run with the default settings. See the [clip credits and license](sample-clips/gmdcsa24/ATTRIBUTION.md).
+
+To offer all 160 clips, download and extract [GMDCSA-24 v2.1 by Ekram Alam](https://doi.org/10.5281/zenodo.13354453) on the computer that runs the Python backend. Set `HOME_IOT_DATASET_DIR` to the folder that contains `Subject 1` through `Subject 4`, then restart the app.
 
 ```powershell
 $env:HOME_IOT_DATASET_DIR = 'D:\Data\GMDCSA24-v2.1'
 py -3.11 -m tools.run_demo --scenario home_showcase
 ```
 
-Open **Dataset video** in the dashboard. **Subject 1 / ADL / 13** shows walking and sitting. **Subject 4 / Fall / 07** is a fall example. The folders and labels are part of GMDCSA-24 under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Use the sign-in option below if you share access. The local file picker also works with the library disabled.
+If that folder has no valid clips, the two included samples still appear. On a remote server, set the variable to a path on that server. **Open local video** in the dashboard plays an MP4 from the viewer's device.
 
 ## Optional dashboard accounts
 
@@ -44,6 +46,12 @@ py -3.11 -m tools.run_demo --scenario home_showcase
 Open the dashboard and sign in. The project keeps a salted password digest in `auth.local.json`, which is excluded from Git.
 
 To let people create their own accounts, set `$env:HOME_IOT_ALLOW_SIGNUP = '1'` before starting the app and choose **Create an account** on the sign-in page. This also works without a preconfigured demo account. Registered accounts use password digests in `accounts.local.db`, outside Git. Turning off registration keeps existing accounts active. Sign out from the header when you are done. Use the registration option for the demo with simulated data, and use an HTTPS gateway with secure cookies when sharing it.
+
+## Keep the demo online when your computer is off
+
+A Cloudflare Quick Tunnel reaches the backend on the machine that runs it. The link stops working when that machine shuts down and changes when you create a new Quick Tunnel. [Cloudflare Quick Tunnels](https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/)
+
+For a stable public URL, run the project on an always-on server or VM with Python 3.11 or newer. Clone the repo onto that machine, set `TELEGRAM_MODE=preview` for the shared demo, and run `python3 -m tools.run_demo --scenario home_showcase` from the checkout. Enable the app and the HTTPS gateway at boot. Keep the HTTP backend on `127.0.0.1:8080` and point the gateway to that address. For example, use a named Cloudflare Tunnel on your domain with Cloudflare Access to restrict visitors. The two included videos are available on the VM as soon as it starts. Store SQLite and account files on persistent disk if you need to keep their contents across server rebuilds. [Cloudflare Tunnel setup](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/get-started/create-remote-tunnel/)
 
 ## Run each component separately
 
@@ -109,6 +117,6 @@ See [test results](docs/test-results.md) for the Windows software run and hardwa
 - Device offline: the dashboard needs fresh valid telemetry, not merely an MQTT connection.
 - Gas not ready: hardware intentionally disables gas threshold evaluation until conditioning/calibration is acknowledged in `config.h`.
 - Hardware cannot connect: ESP32 needs the laptop's LAN IPv4 address, the same reachable Wi-Fi network, and the authenticated LAN broker configuration. `localhost` on ESP32 means the ESP32 itself.
-- This demo uses local HTTP and MQTT without TLS. Keep it on a trusted private network; no internet exposure is implemented.
+- This demo uses local HTTP and MQTT on loopback by default. When sharing the dashboard, keep MQTT on loopback and use an authenticated HTTPS gateway as described above.
 
 Start with [demo guide](docs/demo-guide.md), then [architecture](docs/architecture.md), [test plan](docs/test-plan.md) and [cheat sheet](docs/cheatsheet.md).

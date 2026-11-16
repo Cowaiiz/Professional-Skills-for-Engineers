@@ -18,7 +18,7 @@ Phần webcam dùng MediaPipe Pose Landmarker Lite để phân tích tư thế v
 2. Phát từ đầu để bộ nhận diện quan sát chuyển động trước khi ngã. Kéo thanh thời gian sẽ đặt lại lần nhận diện.
 3. Clip đi rồi ngồi có hộp xanh dương **Walking** rồi chuyển xanh lá **Sitting**. Clip ngã chuyển sang hộp tím **Fall Detected** và ghi thời điểm **Possible fall** theo thời gian trong clip.
 
-Thư viện trên web cần thư mục dataset trên máy chủ. Xem [cách cấu hình](../README.md#host-the-gmdcsa-24-clip-library). Bạn có thể mở MP4 cục bộ bằng bộ chọn tệp. Cả hai cách đều phân tích video trong trình duyệt. Nhãn dataset chỉ phục vụ đối chiếu kết quả kiểm thử.
+Hai clip trên có sẵn trong bản Git và ZIP ở mục **Suggested clips**. Để xem đủ 160 clip, trỏ backend tới thư mục dataset trên máy chạy backend. Xem [cách cấu hình](../README.md#host-the-gmdcsa-24-clip-library). Bạn cũng có thể mở MP4 cục bộ bằng bộ chọn tệp. Cả hai cách đều phân tích video trong trình duyệt. Nhãn dataset chỉ phục vụ đối chiếu kết quả kiểm thử.
 
 [Nguồn phát hành GMDCSA-24 v2.1](https://doi.org/10.5281/zenodo.13354453)
 

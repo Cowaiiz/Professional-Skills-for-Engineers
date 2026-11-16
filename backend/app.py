@@ -17,7 +17,11 @@ from backend.store import Store
 from backend.telegram import run_notifications
 
 def create_server(store, health, host='127.0.0.1', port=8080, gate=None, dataset_dir=None):
-    dataset = CameraDataset(dataset_dir if dataset_dir is not None else os.environ.get('HOME_IOT_DATASET_DIR'))
+    if dataset_dir is None:
+        dataset_dir = os.environ.get('HOME_IOT_DATASET_DIR')
+    dataset = CameraDataset(dataset_dir)
+    if not dataset.clips:
+        dataset = CameraDataset(ROOT / 'sample-clips' / 'gmdcsa24')
 
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, format, *args): pass
