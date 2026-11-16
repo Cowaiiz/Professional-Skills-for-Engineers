@@ -13,7 +13,8 @@ from urllib.parse import parse_qs, urlsplit
 ROUNDS = 600_000
 SESSION_SECONDS = 8 * 60 * 60
 CSP = ("default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; "
-       "connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'none'")
+       "connect-src 'self'; media-src 'self' blob:; frame-ancestors 'none'; "
+       "form-action 'self'; base-uri 'none'")
 
 
 def password_hash(password, salt):

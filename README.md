@@ -1,6 +1,6 @@
 # Home IoT Monitoring & Alert System — CC02, Group 8
 
-Living-room monitoring prototype for temperature/humidity, relative gas response, motion and door monitoring. The Windows 11 software demo has been verified with simulated inputs. ESP32 bench verification remains open. The dashboard includes animated camera scenarios. The camera demo uses synthetic observations.
+Living-room monitoring prototype for temperature, humidity, relative gas response, motion and door events. The Windows 11 software demo uses simulated sensor inputs. ESP32 bench verification remains open.
 
 ## Start without hardware (Windows)
 
@@ -13,11 +13,22 @@ py -3.11 -m tools.run_demo --scenario home_showcase
 
 Open **http://127.0.0.1:8080**. Keep the terminal open; Ctrl+C stops the three processes. Log files are in `logs/`. If the Python launcher is unavailable, use `python` after confirming that it points to Python 3.11 or newer.
 
-Select **My camera** and allow camera access to run local pose tracking and flag a **Possible fall**. Use one person, a fixed side-on view, and enough room to see shoulders through feet and the floor. **Demo camera** switches back to the scripted cases and stops the webcam. Live video and webcam events stay in the browser. See [webcam test steps](docs/test-case-camera.md).
+The camera panel has **My camera** and **Dataset video**. Use My camera to start your webcam, or select a hosted clip or local video under Dataset video. The same browser-based detector draws boxes for standing, walking, sitting and possible falls. Webcam footage, local files and camera detections are processed on the device. See [camera steps and GMDCSA-24 results](docs/test-case-camera.md).
 
-Use **Person enters**, **Possible fall**, or select one of ten **Camera test case** replays. See [camera cases and expected results](docs/test-case-camera.md). The **Phone notifications** panel shows local previews for high gas and node offline in the default configuration. See the [Vietnamese feature list and presentation guide](docs/tinh-nang-va-demo.md) and [Telegram setup](docs/telegram.md).
+The **Phone notifications** panel shows local previews for high gas and node offline by default. See the [Vietnamese feature list and presentation guide](docs/tinh-nang-va-demo.md) and [Telegram setup](docs/telegram.md).
 
 `home_showcase` runs gas and temperature alerts, recovery and one telemetry pause. See [Windows verification](docs/test-results.md). The simulator also supports `normal`, `motion`, `door_open`, `high_temperature`, `high_gas`, `device_unstable`, `combined_event`, `noisy` and `sensor_fault`. Run one publisher for `device01` at a time.
+
+## Host the GMDCSA-24 clip library
+
+Download and extract [GMDCSA-24 v2.1 by Alam et al.](https://doi.org/10.5281/zenodo.13354453). Point the app to the folder that contains `Subject 1` through `Subject 4`. The release contains 160 MP4 clips. The videos live on the server running the app.
+
+```powershell
+$env:HOME_IOT_DATASET_DIR = 'D:\Data\GMDCSA24-v2.1'
+py -3.11 -m tools.run_demo --scenario home_showcase
+```
+
+Open **Dataset video** in the dashboard. **Subject 1 / ADL / 13** shows walking and sitting. **Subject 4 / Fall / 07** is a fall example. The folders and labels are part of GMDCSA-24 under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Use the sign-in option below if you share access. The local file picker also works with the library disabled.
 
 ## Optional dashboard sign-in
 
@@ -57,7 +68,7 @@ The included broker implements only the MQTT subset needed for this demo. Use **
 | `simulator` | Deterministic scenarios publishing JSON over MQTT |
 | `common` | Configuration, payload validation and minimal MQTT client |
 | `backend` | MQTT ingestion, rules, SQLite, HTTP API and Telegram sender (`telegram.py`) |
-| `dashboard` | Base dashboard, camera replay (`camera-demo.js`) and notification display (`notifications.js`) |
+| `dashboard` | Sensor dashboard, webcam and clip player, pose detection and notification display |
 | `broker` | Mosquitto configurations for localhost and authenticated LAN |
 | `tests` | Python unit/integration tests and portable C++ rule tests |
 | `diagrams` | Five editable Mermaid diagrams |

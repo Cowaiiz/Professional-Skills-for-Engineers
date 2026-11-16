@@ -20,3 +20,7 @@
 - Added a persistent notification queue with Telegram preview and opt-in live delivery for high gas and device offline.
 - Added the one-pass home_showcase scenario and organized the README, camera, and notification components.
 - Added ten Edge-verified camera scenarios for multiple actors, three fall locations, partial views, quick recovery and an empty room.
+- Added local dataset video playback with the webcam fall detector. Replaced pose overlays with green and red whole-frame borders, and made the rule tolerate brief gaps while requiring observed evidence for an alert. Documented the GMDCSA-24 sample results and clips for the demo.
+- Replaced whole-frame camera borders with person-level boxes for standing, walking, sitting and a possible fall. Used the existing pose landmarks for box geometry and retained the fall rule.
+- Updated live and dataset fall detection to check the movement of shoulders and hips, including falls from a seated start. Replayed all 160 annotated clips against both rules and recorded a separate Subject 4 result.
+- Stream GMDCSA-24 clips from a configured data folder. The camera panel now has two sources, My camera and Dataset video.

@@ -1,43 +1,59 @@
 import { FilesetResolver, PoseLandmarker } from './vendor/mediapipe/vision_bundle.mjs';
-import { FallRule, readPose } from './fall-rule.mjs';
+import { MotionFallRule, readFallEvidence, readPose } from './fall-rule.mjs';
+import { PersonActivity, readPersonFrame } from './person-frame.mjs';
 
-const edges = [[11, 12], [11, 23], [12, 24], [23, 24], [23, 25], [25, 27], [24, 26], [26, 28]];
 const labels = {
-  limited: 'Limited view · show one person from shoulders to feet.',
-  standing: 'Hold a standing position to calibrate.',
+  limited: 'Limited view · keep the shoulders and hips visible.',
+  standing: 'Monitoring movement.',
   armed: 'Fall detection ready.',
-  tracking: 'Tracking body position.',
-  waiting: 'Stand fully in frame to arm fall detection.',
-  checking: 'Checking for a sustained position near the floor…',
+  tracking: 'Monitoring movement.',
+  checking: 'Checking a possible fall…',
   alert: 'Possible fall · check whether the person needs help.',
 };
+const captions = {
+  fall: 'Fall Detected',
+  walking: 'Walking',
+  standing: 'Standing',
+  sitting: 'Sitting',
+  tracking: 'Tracking',
+};
 
-function drawPose(canvas, video, marks, alarm) {
-  const width = video.clientWidth;
-  const height = video.clientHeight;
-  if (!width || !height) return;
-  canvas.width = width;
-  canvas.height = height;
-  if (!marks) return;
-  const ctx = canvas.getContext('2d');
-  const scale = Math.min(width / video.videoWidth, height / video.videoHeight);
-  const drawnWidth = video.videoWidth * scale;
-  const drawnHeight = video.videoHeight * scale;
-  const left = (width - drawnWidth) / 2;
-  const top = (height - drawnHeight) / 2;
-  ctx.strokeStyle = alarm ? '#ff637d' : '#7bf1dc';
-  ctx.lineWidth = 3;
-  for (const [i, j] of edges) {
-    const a = marks[i], b = marks[j];
-    if (a.visibility < 0.55 || b.visibility < 0.55) continue;
-    ctx.beginPath();
-    ctx.moveTo(left + a.x * drawnWidth, top + a.y * drawnHeight);
-    ctx.lineTo(left + b.x * drawnWidth, top + b.y * drawnHeight);
-    ctx.stroke();
+function showPersonFrame(overlay, video, frame, activity) {
+  const {clientWidth, clientHeight, videoWidth, videoHeight} = video;
+  if (!frame || !clientWidth || !clientHeight || !videoWidth || !videoHeight) {
+    overlay.setAttribute('hidden', '');
+    return;
   }
+  const [box, tag, label] = overlay.children;
+  const scale = Math.min(clientWidth / videoWidth, clientHeight / videoHeight);
+  const width = videoWidth * scale;
+  const height = videoHeight * scale;
+  const left = (clientWidth - width) / 2;
+  const top = (clientHeight - height) / 2;
+  const x = left + frame.x * width;
+  const y = top + frame.y * height;
+  const viewBox = '0 0 ' + clientWidth + ' ' + clientHeight;
+  if (overlay.getAttribute('viewBox') !== viewBox) overlay.setAttribute('viewBox', viewBox);
+  overlay.removeAttribute('hidden');
+  if (overlay.dataset.activity !== activity) overlay.dataset.activity = activity;
+  box.setAttribute('x', x);
+  box.setAttribute('y', y);
+  box.setAttribute('width', frame.width * width);
+  box.setAttribute('height', frame.height * height);
+  if (label.textContent !== captions[activity]) {
+    label.textContent = captions[activity];
+    tag.setAttribute('width', Math.ceil(label.getComputedTextLength()) + 12);
+  }
+  const tagWidth = Number(tag.getAttribute('width'));
+  const tagX = Math.max(left, Math.min(x, left + width - tagWidth));
+  const tagY = y - top >= 19 ? y - 19 : y;
+  tag.setAttribute('x', tagX);
+  tag.setAttribute('y', tagY);
+  label.setAttribute('x', tagX + 6);
+  label.setAttribute('y', tagY + 14);
 }
 
-export async function startFallPreview({video, canvas, status, onAlert, signal}) {
+export async function startFallPreview({video, overlay, status, onAlert, signal, dataset = false}) {
   const assets = './vendor/mediapipe/';
   const wasm = await FilesetResolver.forVisionTasks(new URL(assets + 'wasm', import.meta.url).href);
   if (signal.aborted) return;
@@ -53,46 +69,76 @@ export async function startFallPreview({video, canvas, status, onAlert, signal})
     poseModel.close();
     return;
   }
-  const rule = new FallRule();
+  const rule = new MotionFallRule();
+  const classifier = new PersonActivity();
+  let personFrame = null;
+  let activity = 'tracking';
   let frame;
   let last = -Infinity;
-  let lastVideoTime = -1;
+  let lastVideoTime = -Infinity;
   let closed = false;
+  const showState = (state, label) => {
+    if (status.textContent !== label) status.textContent = label;
+    if (status.dataset.state !== state) status.dataset.state = state;
+  };
+  const renderPerson = () => showPersonFrame(overlay, video, personFrame, activity);
+  const observer = new ResizeObserver(renderPerson);
+  observer.observe(video);
+  const resetAfterSeek = () => {
+    rule.reset();
+    classifier.reset();
+    personFrame = null;
+    renderPerson();
+    lastVideoTime = -Infinity;
+    showState('tracking', 'Position changed · play from before the movement to check for a fall.');
+  };
   const cleanup = () => {
     if (closed) return;
     closed = true;
     cancelAnimationFrame(frame);
+    observer.disconnect();
+    video.removeEventListener('seeking', resetAfterSeek);
     poseModel.close();
-    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    overlay.setAttribute('hidden', '');
   };
   signal.addEventListener('abort', cleanup, {once: true});
+  if (dataset) video.addEventListener('seeking', resetAfterSeek);
 
   function detect(now) {
     if (closed) return;
-    if (video.readyState >= 2 && now - last >= 100 && video.currentTime !== lastVideoTime) {
+    const time = video.currentTime;
+    const advancing = dataset ? !video.paused && !video.seeking && (time - lastVideoTime) >= 0.099 :
+      now - last >= 100 && time !== lastVideoTime;
+    if (video.readyState >= 2 && advancing) {
       last = now;
-      lastVideoTime = video.currentTime;
+      lastVideoTime = time;
       try {
         const {landmarks} = poseModel.detectForVideo(video, now);
         const marks = landmarks.length === 1 ? landmarks[0] : null;
-        const pose = readPose(marks, video.videoWidth / video.videoHeight);
-        const state = rule.update(pose, now);
+        const aspect = video.videoWidth / video.videoHeight;
+        const pose = readPose(marks, aspect);
+        if (landmarks.length > 1) rule.reset();
+        const timestamp = dataset ? time * 1000 : now;
+        const state = rule.update(readFallEvidence(marks, aspect), timestamp);
         const alarm = state === 'alert' || state === 'new-alert';
-        const label = landmarks.length > 1 ? 'Multiple people in view · show one person.' :
+        personFrame = readPersonFrame(marks);
+        activity = classifier.update(state === 'checking' ? null : pose, marks, timestamp, alarm);
+        renderPerson();
+        const label = landmarks.length > 1 ? 'Limited view · multiple people detected.' :
+          dataset && state === 'limited' ? 'Limited view · the shoulders or hips are hard to see.' :
           labels[alarm ? 'alert' : state];
-        if (status.textContent !== label) status.textContent = label;
-        status.dataset.state = alarm ? 'alert' : state;
-        drawPose(canvas, video, pose ? marks : null, alarm);
+        const activeLabel = activity === 'walking' || activity === 'sitting' ? captions[activity] + ' · ' : '';
+        showState(alarm ? 'alert' : state, activeLabel + label);
         if (state === 'new-alert') onAlert();
       } catch {
         cleanup();
-        status.textContent = 'Pose detection paused. Switch to Demo camera and reopen My camera to retry.';
-        status.dataset.state = 'limited';
+        showState('limited', dataset ? 'Fall detection stopped. Switch sources and reopen the clip to retry.' :
+          'Fall detection stopped. Stop and restart the camera to retry.');
         return;
       }
     }
     frame = requestAnimationFrame(detect);
   }
-  status.textContent = 'Show one person from shoulders to feet.';
+  showState('tracking', dataset ? 'Press Play to analyze this clip.' : 'Keep one person in view, including shoulders and hips.');
   frame = requestAnimationFrame(detect);
 }

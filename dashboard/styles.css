@@ -197,35 +197,111 @@ footer { margin-top: 17px; color: var(--muted); font-size: 12px; }
 #handover-status { font-size: 12px; color: var(--muted); }
 
 .demo-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 12px; margin: 12px 0; align-items: start; }
-.camera-frame { display: block; width: 100%; border-radius: 8px; aspect-ratio: 560 / 245; }
-.camera-badge, #telegram-mode { border-radius: 6px; padding: 4px 7px; background: #dfedf8; color: #155166; font-size: 11px; font-weight: 700; }
-.camera-controls { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
-.camera-state { font-size: 13px; font-weight: 650; }
-#camera-events, #telegram-events { list-style: none; margin: 6px 0 0; padding: 0; font-size: 13px; }
-#camera-events li, #telegram-events li { background: #f0f5fa; border-radius: 6px; padding: 6px 8px; margin-bottom: 5px; overflow-wrap: anywhere; }
+#telegram-mode { border-radius: 6px; padding: 4px 7px; background: #dfedf8; color: #155166; font-size: 11px; font-weight: 700; }
+#telegram-events { list-style: none; margin: 6px 0 0; padding: 0; font-size: 13px; }
+#telegram-events li { background: #f0f5fa; border-radius: 6px; padding: 6px 8px; margin-bottom: 5px; overflow-wrap: anywhere; }
 #telegram-events p { margin: 3px 0 0; white-space: pre-line; }
 #telegram-events strong { color: #23557a; font-size: 12px; }
 #telegram-events strong[data-status="accepted"] { color: #006d63; }
 #telegram-events strong[data-status="failed"], #telegram-events strong[data-status="unknown"] { color: #9b2530; }
 @media (max-width: 750px) { .demo-grid { grid-template-columns: 1fr; } }
 
-.camera-frame { overflow: hidden; }
-.camera-case-form { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin-top: 10px; }
-.camera-case-form label { font-size: 12px; color: var(--muted); font-weight: 700; }
-.camera-case-form select { max-width: 100%; min-width: 0; }
-.camera-case-form button { background: #164f55; color: white; border-color: #164f55; }
-.camera-actor-label { font: 700 12px "Segoe UI", sans-serif; paint-order: stroke; stroke: #13283d; stroke-width: 3px; }
+.camera > .section-heading { margin-bottom: 12px; }
+.camera-source {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 320px;
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: 14px;
+  border-radius: 9px;
+  background: #edf3f8;
+}
+.camera-source button {
+  border: 0;
+  border-radius: 6px;
+  min-height: 36px;
+  font-weight: 650;
+  color: #415873;
+  background: transparent;
+}
+.camera-source button:hover { background: #e0edea; }
+.camera-source [aria-pressed="true"] { color: #fff; background: #145b56; }
+.camera-dataset-controls, .camera-webcam-controls { margin-bottom: 12px; }
+.camera-dataset-fields {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 2fr);
+  gap: 10px;
+}
+.camera-dataset-fields label { min-width: 0; font-size: 13px; font-weight: 700; }
+.camera-dataset-fields select {
+  display: block;
+  min-height: 36px;
+  width: 100%;
+  margin-top: 4px;
+  text-overflow: ellipsis;
+}
+.camera-dataset-actions, .camera-webcam-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+.camera-dataset-actions { justify-content: space-between; margin-top: 8px; }
+.camera-dataset-actions p, .camera-webcam-controls p { margin: 0; }
+.camera-dataset-actions a { color: #12545c; text-underline-offset: 2px; }
+#camera-open-file {
+  border-color: transparent;
+  background: transparent;
+  color: #145b56;
+  font-weight: 700;
+}
+#camera-open-file:hover { background: #e6f3f1; }
+#camera-toggle { min-height: 34px; font-weight: 700; }
+.camera-clip-caption { margin: 8px 0 0; overflow-wrap: anywhere; }
+.camera-preview {
+  position: relative;
+  overflow: hidden;
+  border-radius: 9px;
+  background: #13283d;
+}
+.camera-frame, .camera-empty {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+.camera-frame { display: block; object-fit: contain; }
+.camera-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 15px;
+  text-align: center;
+  color: #b7cede;
+  background: radial-gradient(ellipse at 50% 0%, #235469, #13283d 73%);
+  font-size: 13px;
+}
+.camera-empty strong { color: #f5faff; font-size: 17px; }
+.camera-empty-icon { width: 32px; height: 32px; margin-bottom: 2px; color: #9bdccf; }
+.camera [hidden] { display: none; }
+#camera-person-overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.camera-person-box { fill: none; stroke: var(--person-color, #f0f4f8); stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+.camera-person-tag { fill: var(--person-color, #f0f4f8); }
+.camera-person-label { fill: #101828; font: 700 12px "Segoe UI", sans-serif; }
+.camera [data-activity="walking"], .camera [data-activity="standing"] { --person-color: #64b5ff; }
+.camera [data-activity="sitting"] { --person-color: #67dc9a; }
+.camera [data-activity="fall"] { --person-color: #c7a3ff; }
 
-.camera-source { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-.camera-source [aria-pressed="true"] { background: #164f55; color: white; border-color: #164f55; }
-#camera-video { background: #13283d; object-fit: contain; }
-#camera-video[hidden] { display: none; }
-
-.camera-preview { position: relative; }
-#camera-overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-#camera-live-status[data-state="alert"] { background: #f9e7eb; color: #9c3045; border-radius: 6px; padding: 8px; }
+.camera-state { margin: 9px 0 0; font-size: 13px; font-weight: 650; }
+.camera-state:empty, #live-camera-events:empty { display: none; }
+#camera-live-status[data-state="alert"] { background: #efe5ff; color: #5b328b; border-radius: 6px; padding: 8px; }
 #live-camera-events { list-style: none; margin: 6px 0; padding: 0; }
-#live-camera-events li { background: #f9e7eb; color: #782337; border-radius: 6px; padding: 7px; font-size: 13px; margin-top: 4px; }
+#live-camera-events li { background: #efe5ff; color: #5b328b; border-radius: 6px; padding: 7px; font-size: 13px; margin-top: 4px; }
+@media (max-width: 480px) {
+  .camera-source { max-width: 100%; }
+  .camera-dataset-fields { grid-template-columns: 1fr; }
+}
 
 #logout-form button { color: white; background: transparent; border-color: #93abc1; }
 #logout-form button:hover { background: #234969; }

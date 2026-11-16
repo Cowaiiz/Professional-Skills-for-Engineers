@@ -26,7 +26,7 @@ function armedRule() {
   return rule;
 }
 
-test('fast descent and three continuous seconds near the floor fire once', () => {
+test('fast descent and three seconds near the floor fire once', () => {
   const rule = armedRule();
   assert(!during(rule, fallen, 900, 3800).includes('new-alert'));
   assert.equal(rule.update(pose(fallen), 3900), 'new-alert');
@@ -52,12 +52,20 @@ test('recovery before three seconds cancels the pending fall', () => {
   assert.equal(rule.update(pose(upright), 3100), 'armed');
 });
 
-test('an occluded lower body or frames separated by a long gap give insufficient evidence', () => {
+test('a brief missed pose is not counted and recovery of tracking can confirm a fall', () => {
+  const rule = armedRule();
+  assert(!during(rule, fallen, 900, 2000).includes('new-alert'));
+  assert.equal(rule.update(null, 2100), 'limited');
+  assert(!during(rule, fallen, 2200, 3800).includes('new-alert'));
+  assert.equal(rule.update(pose(fallen), 3900), 'new-alert');
+});
+
+test('a sustained occlusion or a long frame gap resets the fall candidate', () => {
   assert.equal(pose([fallen[0], fallen[1], fallen[2], point(.74, .84, .2)]), null);
   const rule = armedRule();
   during(rule, fallen, 900, 2000);
-  assert.equal(rule.update(null, 2100), 'limited');
-  assert(!during(rule, fallen, 2200, 6300).includes('new-alert'));
+  assert(during(rule, null, 2100, 2600).every(state => state === 'limited'));
+  assert(!during(rule, fallen, 2700, 6300).includes('new-alert'));
   const interrupted = armedRule();
   during(interrupted, fallen, 900, 1800);
   assert(!during(interrupted, fallen, 6500, 10300).includes('new-alert'));

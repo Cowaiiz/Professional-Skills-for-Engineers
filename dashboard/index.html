@@ -13,49 +13,48 @@
 <article><p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15a4 4 0 0 1 0-6m6 0a4 4 0 0 1 0 6M6 18a8 8 0 0 1 0-12m12 0a8 8 0 0 1 0 12"/><circle cx="12" cy="12" r="1"/></svg>MOTION</p><strong id="motion">—</strong><span>PIR sensor</span></article></section>
 <div class="demo-grid">
   <section class="panel camera" aria-labelledby="camera-title">
-    <div class="section-heading"><h2 id="camera-title">Living room camera</h2><span id="camera-badge" class="camera-badge">SIMULATED SCENE</span></div>
+    <div class="section-heading"><h2 id="camera-title">Living room camera</h2></div>
     <div class="camera-source" role="group" aria-label="Camera source">
-      <button type="button" id="camera-mode-demo" aria-pressed="true">Demo camera</button>
-      <button type="button" id="camera-mode-live" aria-pressed="false">My camera</button>
+      <button type="button" id="camera-mode-live" aria-pressed="false" aria-controls="camera-webcam-controls">My camera</button>
+      <button type="button" id="camera-mode-dataset" aria-pressed="true" aria-controls="camera-dataset-controls">Dataset video</button>
     </div>
-    <div id="camera-replay">
-    <svg class="camera-frame" viewBox="0 0 560 245" role="img" aria-label="Animated diagram of a living room and its entry zone">
-      <rect width="560" height="245" fill="#13283d"/>
-      <path d="M0 155H560V245H0Z" fill="#284760"/>
-      <path d="M0 209h560M0 230h560M119 155l-41 90M228 155l-10 90M345 155l14 90M455 155l45 90" stroke="#496579"/>
-      <rect x="32" y="33" width="96" height="127" rx="3" fill="#0e1c2e" stroke="#6387a0" stroke-width="3"/>
-      <path d="M47 146V49L103 59v92Z" fill="#245171"/><circle cx="91" cy="103" r="3" fill="#d5f3f3"/>
-      <rect x="128" y="143" width="83" height="71" rx="6" fill="#1d5362" stroke="#78d5ca" stroke-dasharray="6 6"/>
-      <text x="140" y="207" fill="#a4eee3" font-size="12">ENTRY ZONE</text>
-      <rect x="375" y="106" width="147" height="55" rx="12" fill="#547389"/>
-      <rect x="356" y="140" width="182" height="39" rx="10" fill="#7391a6"/>
-      <path d="M373 177v12m146-12v12" stroke="#9db6c9" stroke-width="6"/>
-      <path d="M390 70h139" stroke="#527790"/>
-      <defs><g id="camera-figure" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">
-        <circle cx="0" cy="-56" r="9" fill="currentColor" stroke="none"/>
-        <path d="M0 -42v24m-16-11 16-11 15 11M0-18l-11 18m11-18 12 18"/>
-      </g></defs>
-      <g id="camera-actors"></g>
-    </svg>
-    <div class="camera-controls"><button type="button" id="camera-entry">Person enters</button><button type="button" id="camera-fall">Possible fall</button><button type="button" id="camera-reset">Reset</button></div>
-    <form id="camera-case-form" class="camera-case-form">
-      <label for="camera-case">Camera test case</label>
-      <select id="camera-case"></select>
-      <button type="submit">Run case</button>
-    </form>
-    <p class="camera-state" id="camera-status" role="status">Ready to replay a synthetic scene.</p>
-    <ol id="camera-events" aria-label="Camera demo events"></ol>
-    </div>
-    <div id="camera-live" hidden>
-      <div class="camera-preview">
-      <video id="camera-video" class="camera-frame" autoplay muted playsinline hidden aria-label="Local webcam preview"></video>
-        <canvas id="camera-overlay" aria-hidden="true"></canvas>
+    <div id="camera-dataset-controls" class="camera-dataset-controls">
+      <div class="camera-dataset-fields">
+        <label for="camera-category">Category
+          <select id="camera-category" disabled>
+            <option value="all">All clips</option><option value="fall">Falls</option><option value="adl">Daily activities</option>
+          </select>
+        </label>
+        <label for="camera-clip">Clip
+          <select id="camera-clip" aria-describedby="camera-catalog-status" disabled><option value="">Choose a clip</option></select>
+        </label>
       </div>
-      <p id="camera-live-status" class="camera-state" role="status"></p>
-      <p class="meta">Keep one person fully in view, including the floor. Video and fall alerts stay in this browser.</p>
-      <button type="button" id="camera-retry" hidden>Retry camera</button>
-      <ol id="live-camera-events" aria-label="Local fall events" aria-live="polite"></ol>
+      <div class="camera-dataset-actions">
+        <p id="camera-catalog-status" class="meta" role="status">Loading the GMDCSA-24 catalog…</p>
+        <button type="button" id="camera-open-file">Open local video</button>
+        <input type="file" id="camera-video-file" accept="video/*,.mp4,.webm" aria-label="Choose a local video" hidden>
+      </div>
+      <p id="camera-clip-caption" class="meta camera-clip-caption" hidden></p>
     </div>
+    <div id="camera-webcam-controls" class="camera-webcam-controls" hidden>
+      <button type="button" id="camera-toggle">Start camera</button>
+      <p class="meta">Video stays in this browser.</p>
+    </div>
+    <div class="camera-preview">
+      <div id="camera-empty" class="camera-empty">
+        <svg class="camera-empty-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3Z" stroke-linejoin="round"/></svg>
+        <strong id="camera-empty-title">Choose a video clip</strong>
+        <span id="camera-empty-help">Select a dataset clip or open a local video.</span>
+      </div>
+      <video id="camera-video" class="camera-frame" muted playsinline preload="metadata" hidden aria-label="Camera video"></video>
+      <svg id="camera-person-overlay" aria-hidden="true" hidden>
+        <rect class="camera-person-box" rx="3"></rect>
+        <rect class="camera-person-tag" rx="3" height="19"></rect>
+        <text class="camera-person-label"></text>
+      </svg>
+    </div>
+    <p id="camera-live-status" class="camera-state" role="status"></p>
+    <ol id="live-camera-events" aria-label="Local fall events" aria-live="polite"></ol>
   </section>
   <section class="panel delivery" aria-labelledby="notification-title">
     <div class="section-heading"><h2 id="notification-title">Phone notifications</h2><span id="telegram-mode">Loading…</span></div>

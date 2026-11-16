@@ -3,6 +3,7 @@ import argparse
 import json
 import logging
 import mimetypes
+import os
 import threading
 import time
 from uuid import UUID
@@ -11,10 +12,13 @@ from urllib.parse import urlsplit, parse_qs, unquote
 from common import mqtt
 from common.config import ROOT, load_config
 from backend.access import AccessGate, CSP
+from backend.camera import CameraDataset, VIDEO_PREFIX
 from backend.store import Store
 from backend.telegram import run_notifications
 
-def create_server(store, health, host='127.0.0.1', port=8080, gate=None):
+def create_server(store, health, host='127.0.0.1', port=8080, gate=None, dataset_dir=None):
+    dataset = CameraDataset(dataset_dir if dataset_dir is not None else os.environ.get('HOME_IOT_DATASET_DIR'))
+
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, format, *args): pass
         def respond(self, payload, status=200, content_type='application/json'):
@@ -26,12 +30,31 @@ def create_server(store, health, host='127.0.0.1', port=8080, gate=None):
             self.send_header('X-Content-Type-Options', 'nosniff')
             self.send_header('Content-Security-Policy', CSP)
             self.end_headers()
-            try: self.wfile.write(raw)
-            except (BrokenPipeError, ConnectionResetError): pass
+            if self.command != 'HEAD':
+                try: self.wfile.write(raw)
+                except (BrokenPipeError, ConnectionResetError): pass
+        def camera_route(self, path):
+            if path == '/api/camera/clips':
+                self.respond({'clips': dataset.clips})
+            elif path.startswith(VIDEO_PREFIX):
+                if not dataset.stream(self, path):
+                    self.respond({'error': 'Clip not found'}, 404)
+            else:
+                return False
+            return True
+
+        def do_HEAD(self):
+            if gate and gate.handle(self):
+                return
+            if not self.camera_route(urlsplit(self.path).path):
+                self.respond({'error': 'Not found'}, 404)
+
         def do_GET(self):
             if gate and gate.handle(self):
                 return
             url = urlsplit(self.path);parts = url.path.strip('/').split('/')
+            if self.camera_route(url.path):
+                return
             if url.path == '/api/notifications':
                 return self.respond({'mode': store.cfg['telegram']['mode'], 'items': store.notifications()})
             if url.path == '/api/health': return self.respond(dict(health, server_time=time.time()))

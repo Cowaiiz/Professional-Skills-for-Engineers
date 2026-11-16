@@ -45,6 +45,8 @@ class LoginTests(unittest.TestCase):
         code, headers, _ = self.request('GET', '/')
         self.assertEqual((code, headers['Location']), (303, '/login'))
         self.assertEqual(self.request('GET', '/api/devices')[0], 401)
+        self.assertEqual(self.request('GET', '/api/camera/clips')[0], 401)
+        self.assertEqual(self.request('GET', '/media/gmdcsa24/subject-1-adl-08.mp4')[0], 401)
         self.assertEqual(self.request('POST', '/api/alerts/1/ack')[0], 401)
         self.assertIn(b'Sign in', self.request('GET', '/login')[2])
 

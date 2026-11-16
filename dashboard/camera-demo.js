@@ -1,232 +1,270 @@
-import { scenes } from './camera-scenarios.js';
-
 const element = id => document.getElementById(id);
-const svg = 'http://www.w3.org/2000/svg';
-const stage = element('camera-actors');
-const status = element('camera-status');
-const events = element('camera-events');
-const select = element('camera-case');
-let replay = 0;
-
-for (const [key, [label]] of Object.entries(scenes)) {
-  select.add(new Option(label, key));
-}
-
-function addEvent(kind, message) {
-  const row = document.createElement('li');
-  row.dataset.kind = kind;
-  row.textContent = 'SIMULATED · ' + message;
-  events.append(row);
-}
-
-function createActor(id) {
-  const color = id === 'A' ? '#b8f6de' : '#acd9ff';
-  const group = document.createElementNS(svg, 'g');
-  group.dataset.actor = id;
-  group.setAttribute('color', color);
-  const figure = document.createElementNS(svg, 'use');
-  figure.setAttribute('href', '#camera-figure');
-  const label = document.createElementNS(svg, 'text');
-  label.setAttribute('class', 'camera-actor-label');
-  label.setAttribute('fill', color);
-  label.textContent = id;
-  group.append(figure, label);
-  stage.append(group);
-  return {figure, label, entered: false, limited: false, floorSince: null, warned: false};
-}
-
-function draw({x, y, pose}, {figure, label}) {
-  figure.setAttribute('transform', pose === 'floor'
-    ? 'translate(' + (x - 25) + ' ' + y + ') rotate(80)'
-    : 'translate(' + x + ' ' + y + ')');
-  label.setAttribute('x', Math.min(540, Math.max(10, x - 5)));
-  label.setAttribute('y', y - (pose === 'floor' ? 20 : 73));
-}
-
-function evaluate({id, x, pose, visible}, track, elapsed) {
-  if (!visible) {
-    track.floorSince = null;
-    track.previousX = null;
-    if (!track.limited) {
-      addEvent('limited', 'Person ' + id + ': partial view · insufficient evidence');
-      track.limited = true;
-    }
-    return;
-  }
-  if (!track.entered && track.previousX != null && track.previousX <= 211 && x > 211) {
-    addEvent('entry', 'Person ' + id + ' entered the room zone');
-    track.entered = true;
-  }
-  track.previousX = x;
-  if (pose !== 'floor') {
-    track.floorSince = null;
-    return;
-  }
-  track.floorSince ??= elapsed;
-  if (!track.warned && elapsed - track.floorSince >= 3) {
-    addEvent('fall', 'Person ' + id + ': possible fall · on floor for 3 s');
-    track.warned = true;
-  }
-}
-
-function reset() {
-  replay += 1;
-  stage.replaceChildren();
-  events.replaceChildren();
-  status.textContent = 'Ready to replay a synthetic scene.';
-}
-
-function play(key) {
-  reset();
-  select.value = key;
-  const run = replay;
-  const [, duration, observe] = scenes[key];
-  const start = performance.now();
-  const tracks = new Map();
-  status.textContent = 'Replay running · synthetic observations';
-
-  function frame(now) {
-    if (run !== replay) return;
-    const elapsed = Math.max(0, (now - start) / 1000);
-    for (const observation of observe(elapsed)) {
-      if (!tracks.has(observation.id)) tracks.set(observation.id, createActor(observation.id));
-      const track = tracks.get(observation.id);
-      draw(observation, track);
-      evaluate(observation, track, elapsed);
-    }
-    if (elapsed < duration) {
-      requestAnimationFrame(frame);
-      return;
-    }
-    const count = kind => [...events.children].filter(row => row.dataset.kind === kind).length;
-    status.textContent = 'Replay complete · ' + count('entry') + ' entry · ' +
-      count('fall') + ' possible fall · ' + count('limited') + ' limited view';
-  }
-  requestAnimationFrame(frame);
-}
-
-element('camera-case-form').addEventListener('submit', event => {
-  event.preventDefault();
-  play(select.value);
-});
-element('camera-entry').addEventListener('click', () => play('entry'));
-element('camera-fall').addEventListener('click', () => play('center_fall'));
-element('camera-reset').addEventListener('click', reset);
-
-const demoButton = element('camera-mode-demo');
-const liveButton = element('camera-mode-live');
-const retryButton = element('camera-retry');
+const buttons = {
+  live: element('camera-mode-live'),
+  dataset: element('camera-mode-dataset'),
+};
+const webcamControls = element('camera-webcam-controls');
+const datasetControls = element('camera-dataset-controls');
+const cameraToggle = element('camera-toggle');
+const catalogStatus = element('camera-catalog-status');
+const category = element('camera-category');
+const clips = element('camera-clip');
+const caption = element('camera-clip-caption');
+const videoFile = element('camera-video-file');
 const video = element('camera-video');
-let stream = null;
-let cameraRequest = 0;
-let poseSession = null;
+const overlay = element('camera-person-overlay');
+const empty = element('camera-empty');
+const emptyTitle = element('camera-empty-title');
+const emptyHelp = element('camera-empty-help');
+const previewStatus = element('camera-live-status');
+const fallEvents = element('live-camera-events');
+const examples = new Set(['subject-4-fall-07', 'subject-1-adl-13']);
 
-function stopLive() {
-  cameraRequest += 1;
+let mode = 'dataset';
+let stream = null;
+let objectUrl = null;
+let requestingCamera = false;
+let mediaRequest = 0;
+let poseSession = null;
+let library = null;
+let fetchingLibrary = false;
+
+function stopMedia() {
+  mediaRequest += 1;
+  requestingCamera = false;
   poseSession?.abort();
   poseSession = null;
-  element('camera-live-status').removeAttribute('data-state');
-  if (stream) {
-    stream.getTracks().forEach(track => track.stop());
-    stream = null;
-  }
+  stream?.getTracks().forEach(track => track.stop());
+  stream = null;
+  video.pause();
   video.srcObject = null;
+  if (video.hasAttribute('src')) {
+    video.removeAttribute('src');
+    video.load();
+  }
+  if (objectUrl) URL.revokeObjectURL(objectUrl);
+  objectUrl = null;
   video.hidden = true;
+  video.controls = false;
+  empty.hidden = false;
+  overlay.setAttribute('hidden', '');
+  previewStatus.textContent = '';
+  delete previewStatus.dataset.state;
+  fallEvents.replaceChildren();
+  cameraToggle.textContent = 'Start camera';
 }
 
-function showSource(live) {
-  demoButton.setAttribute('aria-pressed', String(!live));
-  liveButton.setAttribute('aria-pressed', String(live));
-  element('camera-replay').hidden = live;
-  element('camera-live').hidden = !live;
-  element('camera-badge').textContent = live ? 'LOCAL WEBCAM' : 'SIMULATED SCENE';
+function selectMode(next) {
+  if (next === mode) return;
+  stopMedia();
+  mode = next;
+  datasetControls.hidden = mode !== 'dataset';
+  webcamControls.hidden = mode !== 'live';
+  for (const [name, button] of Object.entries(buttons)) {
+    button.setAttribute('aria-pressed', String(name === mode));
+  }
+  clips.value = '';
+  caption.hidden = true;
+  if (mode === 'live') {
+    emptyTitle.textContent = 'Camera off';
+    emptyHelp.textContent = 'Start the camera to check for possible falls.';
+  } else {
+    emptyTitle.textContent = 'Choose a video clip';
+    emptyHelp.textContent = 'Select a dataset clip or open a local video.';
+    void loadCatalog();
+  }
 }
 
-function showCameraError(message) {
-  element('camera-live-status').textContent = message;
-  retryButton.hidden = false;
+function populateClips() {
+  const visible = [...library.values()].filter(item => category.value === 'all' || item.category === category.value);
+  clips.replaceChildren(new Option('Choose a clip', ''));
+  const groups = new Map();
+  for (const item of visible) {
+    const name = examples.has(item.id) ? 'Suggested clips' : item.subject;
+    if (!groups.has(name)) {
+      const group = document.createElement('optgroup');
+      group.label = name;
+      groups.set(name, group);
+    }
+    const number = item.id.split('-').at(-1);
+    const type = item.category === 'fall' ? 'Fall' : 'Daily activity';
+    const prefix = examples.has(item.id) ? item.subject + ' · ' : '';
+    groups.get(name).append(new Option(prefix + type + ' ' + number + ' · ' + item.title, item.id));
+  }
+  const suggested = groups.get('Suggested clips');
+  groups.delete('Suggested clips');
+  if (suggested) clips.append(suggested);
+  clips.append(...groups.values());
+  clips.disabled = visible.length === 0;
+  catalogStatus.textContent = '';
+  if (visible.length || library.size) {
+    catalogStatus.append(visible.length + (visible.length === 1 ? ' clip · ' : ' clips · '));
+    const credit = document.createElement('a');
+    credit.href = 'https://doi.org/10.5281/zenodo.13354453';
+    credit.target = '_blank';
+    credit.rel = 'noopener';
+    credit.textContent = 'GMDCSA-24 v2.1';
+    catalogStatus.append(credit);
+  } else {
+    catalogStatus.textContent = 'No hosted clips available. You can open a local video.';
+  }
 }
 
-async function startLive() {
-  stopLive();
-  reset();
-  showSource(true);
-  const request = cameraRequest;
-  retryButton.hidden = true;
-  if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
-    showCameraError('Open this link directly in Edge or Chrome over HTTPS, or use localhost.');
+async function loadCatalog() {
+  if (library || fetchingLibrary) return;
+  fetchingLibrary = true;
+  catalogStatus.textContent = 'Loading the GMDCSA-24 catalog…';
+  try {
+    const response = await fetch('/api/camera/clips', {headers: {Accept: 'application/json'}});
+    if (!response.ok) throw Error('Unexpected catalog response');
+    const payload = await response.json();
+    library = new Map(payload.clips
+      .filter(item => /^\/media\/gmdcsa24\/[a-z0-9-]+\.mp4$/.test(item?.url))
+      .map(item => [item.id, item]));
+    category.disabled = library.size === 0;
+    populateClips();
+  } catch {
+    library = null;
+    catalogStatus.textContent = 'Could not load the catalog. You can open a local video.';
+  } finally {
+    fetchingLibrary = false;
+  }
+}
+
+async function toggleCamera() {
+  if (stream || requestingCamera) {
+    stopMedia();
     return;
   }
-  element('camera-live-status').textContent = 'Allow camera access in your browser to start.';
+  if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
+    previewStatus.textContent = 'Camera access needs HTTPS or localhost.';
+    return;
+  }
+  const request = mediaRequest;
+  requestingCamera = true;
+  cameraToggle.textContent = 'Cancel';
+  previewStatus.textContent = 'Allow camera access to start.';
   try {
     const capture = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
-    if (request !== cameraRequest) {
+    if (request !== mediaRequest) {
       capture.getTracks().forEach(track => track.stop());
       return;
     }
+    requestingCamera = false;
     stream = capture;
-    video.srcObject = stream;
+    cameraToggle.textContent = 'Stop camera';
+    capture.getVideoTracks().forEach(track => track.addEventListener('ended', () => {
+      if (stream !== capture) return;
+      stopMedia();
+      previewStatus.textContent = 'Camera disconnected. Reconnect it and start again.';
+    }, {once: true}));
+    video.srcObject = capture;
     video.hidden = false;
+    empty.hidden = true;
     await video.play();
-    if (request !== cameraRequest) return;
-    for (const track of capture.getVideoTracks()) {
-      track.addEventListener('ended', () => {
-        if (stream !== capture) return;
-        stopLive();
-        showCameraError('The camera disconnected. Reconnect it and retry.');
-      }, {once: true});
-    }
-    void detectLiveFalls(request);
+    if (request === mediaRequest) void detectFalls(request, false);
   } catch (error) {
-    if (request !== cameraRequest) return;
-    stopLive();
+    if (request !== mediaRequest) return;
+    stopMedia();
     if (error.name === 'NotAllowedError') {
-      showCameraError('Camera access was blocked. Allow it in browser site settings and retry.');
+      previewStatus.textContent = 'Camera access was blocked. Allow it in your browser settings and try again.';
     } else if (error.name === 'NotFoundError') {
-      showCameraError('No camera was found on this device.');
+      previewStatus.textContent = 'No camera was found on this device.';
     } else {
-      showCameraError('Could not start the camera. Close other apps using it and retry.');
+      previewStatus.textContent = 'Could not start the camera. Close other apps using it and try again.';
     }
   }
 }
 
-async function detectLiveFalls(request) {
-  const status = element('camera-live-status');
+function openClip(url, name, file) {
+  stopMedia();
+  if (file) objectUrl = URL.createObjectURL(file);
+  caption.textContent = name;
+  caption.hidden = false;
+  video.src = objectUrl || url;
+  video.hidden = false;
+  empty.hidden = true;
+  void detectFalls(mediaRequest, true);
+}
+
+async function detectFalls(request, dataset) {
   const session = new AbortController();
   poseSession = session;
-  status.textContent = 'Loading the on-device pose model…';
+  previewStatus.textContent = 'Loading the on-device pose model…';
   try {
     const {startFallPreview} = await import('./camera-live-fall.js');
     if (session.signal.aborted) return;
     await startFallPreview({
       video,
-      canvas: element('camera-overlay'),
-      status,
+      overlay,
+      status: previewStatus,
       signal: session.signal,
+      dataset,
       onAlert: () => {
-        const list = element('live-camera-events');
         const item = document.createElement('li');
-        item.textContent = new Date().toLocaleTimeString() + ' · Possible fall detected';
-        list.prepend(item);
-        if (list.children.length > 8) list.lastElementChild.remove();
+        const seconds = Math.floor(video.currentTime);
+        const time = dataset
+          ? Math.floor(seconds / 60) + ':' + String(seconds % 60).padStart(2, '0')
+          : new Date().toLocaleTimeString();
+        item.textContent = time + ' · Possible fall detected';
+        fallEvents.prepend(item);
+        if (fallEvents.children.length > 8) fallEvents.lastElementChild.remove();
       },
     });
   } catch {
-    if (request === cameraRequest) {
-      status.textContent = 'Pose model unavailable. Webcam preview is active; switch to Demo camera and retry.';
-      status.dataset.state = 'limited';
+    if (request === mediaRequest) {
+      previewStatus.textContent = dataset ? 'Fall detection unavailable. Reopen the video to retry.' :
+        'Fall detection unavailable. Stop and restart the camera to retry.';
+      previewStatus.dataset.state = 'limited';
     }
+  } finally {
+    if (request === mediaRequest && dataset) video.controls = true;
   }
 }
 
-function useDemo() {
-  stopLive();
-  showSource(false);
+for (const [name, button] of Object.entries(buttons)) {
+  button.addEventListener('click', () => selectMode(name));
 }
-
-demoButton.addEventListener('click', useDemo);
-liveButton.addEventListener('click', () => {
-  if (liveButton.getAttribute('aria-pressed') === 'false') startLive();
+cameraToggle.addEventListener('click', toggleCamera);
+category.addEventListener('change', () => {
+  const current = clips.value;
+  populateClips();
+  if ([...clips.options].some(option => option.value === current)) {
+    clips.value = current;
+  } else {
+    stopMedia();
+    caption.hidden = true;
+  }
 });
-retryButton.addEventListener('click', startLive);
-window.addEventListener('pagehide', useDemo);
+clips.addEventListener('change', () => {
+  const clip = library?.get(clips.value);
+  if (clip) {
+    openClip(clip.url, clip.subject + ' · ' + clip.title);
+  } else {
+    stopMedia();
+    caption.hidden = true;
+  }
+});
+element('camera-open-file').addEventListener('click', () => videoFile.click());
+videoFile.addEventListener('change', () => {
+  const file = videoFile.files[0];
+  if (!file) return;
+  clips.value = '';
+  videoFile.value = '';
+  openClip(null, file.name, file);
+});
+video.addEventListener('error', () => {
+  if (mode !== 'dataset' || !video.hasAttribute('src') || !video.error) return;
+  const local = Boolean(objectUrl);
+  stopMedia();
+  clips.value = '';
+  caption.hidden = true;
+  previewStatus.textContent = local ? 'Could not open this video. Try a compatible MP4 or WebM.' :
+    'Could not load this clip. Choose it again or open a local video.';
+});
+window.addEventListener('pagehide', () => {
+  stopMedia();
+  clips.value = '';
+  caption.hidden = true;
+});
+void loadCatalog();

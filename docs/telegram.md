@@ -28,6 +28,6 @@ py -3.11 -m tools.run_demo --scenario home_showcase
 
 Dừng bản đang chạy trước khi đổi cài đặt. Để chỉ gửi cảnh báo từ ESP32, bỏ `TELEGRAM_ALLOW_SIMULATED` rồi khởi động lại backend. Khi kết thúc buổi demo, đóng PowerShell hoặc xóa các biến Telegram khỏi phiên hiện tại. Token và chat ID được đọc từ môi trường của backend. Dashboard không hiển thị các giá trị này.
 
-**Accepted by Telegram** nghĩa là Telegram đã tiếp nhận yêu cầu. Nó không xác nhận người dùng đã đọc tin. Nếu kết quả gửi không xác định, bản ghi giữ trạng thái tương ứng để tránh tự gửi trùng. Các tin xem trước cũ không chuyển thành tin thật khi đổi chế độ. Camera mô phỏng có nhật ký riêng, còn hai sự kiện gửi Telegram là **gas cao** và **node offline**.
+**Accepted by Telegram** nghĩa là Telegram đã tiếp nhận yêu cầu. Nó không xác nhận người dùng đã đọc tin. Nếu kết quả gửi không xác định, bản ghi giữ trạng thái tương ứng để tránh tự gửi trùng. Các tin xem trước cũ không chuyển thành tin thật khi đổi chế độ. Camera có nhật ký trong trình duyệt, còn hai sự kiện gửi Telegram là **gas cao** và **node offline**.
 
 [Tài liệu Telegram Bot API](https://core.telegram.org/bots/api#sendmessage) · [Tạo bot với BotFather](https://core.telegram.org/bots/features#botfather)

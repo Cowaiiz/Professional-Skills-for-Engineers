@@ -13,7 +13,7 @@ Source: latest user-supplied implementation text plus hardware list. These are p
 | FR07 | Dashboard values, trends and events | `dashboard/` and HTTP API | Edge and live HTTP API verified |
 | FR08 | Persistent alert acknowledgement | SQLite/API/dashboard | Browser acknowledgement and restart verified |
 | FR09 | Simulate required scenarios without ESP32 | `simulator/` | Combined and normal published in Windows demo |
-| FR11 | Replay a simulated camera entry and possible fall | `dashboard/camera-demo.js` | Edge replay verified |
+| FR11 | Analyze a webcam or dataset clip for a possible fall | `dashboard/camera-live-fall.js` | Edge playback verified |
 | FR12 | Notify a linked Telegram chat for high gas or node offline | SQLite queue and `backend/telegram.py` | Preview verified and transport mocked |
 | FR10 | Local buzzer and three LEDs | Firmware with independent network task | Hardware pending |
 

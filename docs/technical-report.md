@@ -68,7 +68,7 @@ Operators can filter the recent alert queue and add timestamped notes to an inci
 
 ## Home release extensions
 
-The Home IoT release adds two synthetic camera replays and a Telegram notification queue. The camera replays run in the browser independently of the ESP32. Telegram notices are generated from the gas-active and device-offline transitions. The default mode records a preview locally. Current Home release results are in [Windows verification](test-results.md).
+The camera panel uses a webcam or video clip and runs pose detection in the browser independently of the ESP32. The optional GMDCSA-24 library streams clips from the app server. Telegram notices are generated from the gas-active and device-offline transitions. The default mode records a preview locally. Current Home release results are in [Windows verification](test-results.md).
 
 ## Conclusion
 
