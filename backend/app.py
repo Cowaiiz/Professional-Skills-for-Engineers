@@ -21,7 +21,7 @@ def create_server(store, health, host='127.0.0.1', port=8080, gate=None, dataset
         dataset_dir = os.environ.get('HOME_IOT_DATASET_DIR')
     dataset = CameraDataset(dataset_dir)
     if not dataset.clips:
-        dataset = CameraDataset(ROOT / 'sample-clips' / 'gmdcsa24')
+        dataset = CameraDataset(ROOT / 'datasets' / 'gmdcsa24')
 
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, format, *args): pass

@@ -23,10 +23,10 @@ Giải nén vào thư mục mới. Dừng bản demo cũ bằng Ctrl+C nếu đa
 py -3.11 -m tools.run_demo --scenario home_showcase
 ```
 
-Mở http://127.0.0.1:8080/ trong Edge sau khi PowerShell in địa chỉ.
+Mở http://127.0.0.1:8080/ trong Edge sau khi PowerShell in địa chỉ. Lần đầu, chọn **Create an account** rồi đăng nhập.
 
 1. **Giới thiệu phòng khách.** Chỉ nhãn **SIMULATED DATA** và các số đo.
-2. **Chiếu camera.** Chọn **Dataset video** rồi phát Subject 4 / Fall / 07 để thấy hộp tím cảnh báo. Xem [cách cấu hình thư viện](../README.md#host-the-gmdcsa-24-clip-library).
+2. **Chiếu camera.** Chọn **Dataset video** rồi phát Subject 4 / Fall / 07 để thấy hộp tím cảnh báo. Xem [thông tin thư viện 160 clip](../README.md#host-the-gmdcsa-24-clip-library).
 3. **Chiếu cảnh báo và thông báo.** Khoảng giây 20–25, gas và nhiệt độ bật. Mục **Phone notifications** hiện bản xem trước tin gas. Bấm **Acknowledge**.
 4. **Chiếu phục hồi.** Khoảng giây 55–60 cảnh báo gas chuyển **Cleared**. Kịch bản dừng gửi telemetry trong chốc lát, nên khoảng giây 75–80 sẽ có thông báo offline, rồi node trở lại online. Mở **Review** hoặc thêm ghi chú nếu còn thời gian.
 5. Nếu đã liên kết bot và muốn gửi thật, làm theo [hướng dẫn Telegram](telegram.md) trước buổi demo. Khi chiếu ở chế độ preview, nói rõ đó là bản xem trước trong dashboard.

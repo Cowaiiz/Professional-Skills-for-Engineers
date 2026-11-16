@@ -25,3 +25,4 @@
 - Updated live and dataset fall detection to check the movement of shoulders and hips, including falls from a seated start. Replayed all 160 annotated clips against both rules and recorded a separate Subject 4 result.
 - Stream GMDCSA-24 clips from a configured data folder. The camera panel now has two sources, My camera and Dataset video.
 - Included two credited GMDCSA-24 sample videos so a fresh Git checkout or ZIP can run the camera demo immediately. A configured external library takes precedence for the full test set.
+- Included all 160 original GMDCSA-24 v2.1 clips and enabled dashboard sign-in and account creation by default in the demo launcher.

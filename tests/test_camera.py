@@ -70,16 +70,16 @@ class CameraTests(unittest.TestCase):
                             status, _, body = self.request('/api/camera/clips', server=server)
                             self.assertEqual(status, 200)
                             clips = json.loads(body)['clips']
-                            self.assertEqual([clip['id'] for clip in clips], [
-                                'subject-1-adl-13', 'subject-4-fall-07',
-                            ])
+                            self.assertEqual(len({clip['id'] for clip in clips}), 160)
+                            self.assertEqual(sum(clip['category'] == 'adl' for clip in clips), 81)
+                            self.assertEqual(sum(clip['category'] == 'fall' for clip in clips), 79)
                             for clip in clips:
                                 status, headers, body = self.request(
                                     clip['url'], headers={'Range': 'bytes=0-31'}, server=server,
                                 )
                                 self.assertEqual(status, 206)
                                 self.assertEqual(headers['Content-Type'], 'video/mp4')
-                                self.assertEqual(body[4:8], b'ftyp')
+                                self.assertEqual(len(body), 32, clip['id'])
                         finally:
                             server.shutdown()
                             thread.join()

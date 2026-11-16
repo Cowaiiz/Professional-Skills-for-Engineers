@@ -1,18 +1,20 @@
 """Start the local broker, backend and simulator; Ctrl+C stops owned children."""
 import argparse
+import os
 import socket
 import subprocess
 import sys
 import time
 import urllib.request
 import json
-from backend.access import local_auth_enabled
+from backend.access import SIGNUP_ENV, local_auth_enabled
 from common.config import ROOT, load_config
 from simulator.scenarios import SCENARIOS
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--scenario',choices=SCENARIOS,default='combined_event')
     args=p.parse_args();cfg=load_config()
+    os.environ.setdefault(SIGNUP_ENV, '1')
     if cfg['mqtt']['host'] not in ('127.0.0.1','localhost') or cfg['mqtt']['username']:
         p.error('Demo broker requires localhost without credentials. Use separate terminals for Mosquitto.')
     endpoints = (

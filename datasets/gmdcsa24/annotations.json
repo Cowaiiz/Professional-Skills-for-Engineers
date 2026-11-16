@@ -1,0 +1,2409 @@
+{
+  "source": "https://doi.org/10.5281/zenodo.13354453",
+  "git_tree": "5abac7693229900cf80f722e878fbb119211fc1c",
+  "counts": {
+    "ADL": 81,
+    "Fall": 79
+  },
+  "known_fall_timing_clips": 77,
+  "notes": [
+    "Ground truth comes from v2.1 category folders and author CSV rows.",
+    "Clip duration for scoring should come from the decoded video.",
+    "Missing and malformed timings are kept as issues without guessing corrected values."
+  ],
+  "clips": [
+    {
+      "path": "Subject 1/ADL/01.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 8,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Sitting on the bed to sleeping right side on the bed. Face towards camera",
+      "raw_classes": "Sitting[0 to 1]; Sleeping[2 to 8]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/ADL/02.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 6,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Sitting on the bed to sleeping left side on the bed. Face towards the camera",
+      "raw_classes": "Sitting[0 to 0.5]; Sleeping[1.5 to 6]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/ADL/03.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 6,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Sitting on the bed to sleeping left side on the bed. Face towards the ceiling",
+      "raw_classes": "Sitting[0 to 0.5]; Sleeping[1 to 6]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/ADL/04.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 5,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "From sleeping left side on the bed (Face towards the ceiling) to sitting on the bed",
+      "raw_classes": "Sitting[2.5 to 5]; Sleeping[0 to 1.5]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/ADL/05.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 10,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Coming to the bed and reading book in the sitting position. Front view of the subject. One leg folded",
+      "raw_classes": "Reading[6 to 10]; Sitting[3 to 10]; Walking[1 to 3]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/ADL/06.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 12,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Sitting on the bed (front view) to reading the book while supporting towards the wall. Side view",
+      "raw_classes": "Reading[3 to 12]; Sitting[0 to 2]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/ADL/07.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 7,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Reading book while sitting on the chair; Front view;Leg straight",
+      "raw_classes": "Reading[0 to 5.5]; Sitting[0 to 7]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/ADL/08.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 6,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Walking in the room",
+      "raw_classes": "Walking[0 to 6]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/ADL/09.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 4,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Reading book while walking in the room",
+      "raw_classes": "Reading[0 to 4]; Walking[0 to 4]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/ADL/10.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 3,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Reading book while walking in the room",
+      "raw_classes": "Reading[0 to 2.5]; Walking[0 to 3]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/ADL/11.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 9,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Walking to sitting on the chair and then reading book",
+      "raw_classes": "Reading[5 to 9]; Sitting[3 to 9]; Walking[0 to 2]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/ADL/12.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 7,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Reading book while sitting on the chair to stand up and keeping the book on the chair and going out of the room",
+      "raw_classes": "Reading[0 to 2.5]; Sitting[0 to 3.3]; Standing[3.3 to 5];Walking[5 to 7];",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/ADL/13.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 6,
+      "recording": "Day (Light On)",
+      "attire": "T-shirt & Trousers",
+      "description": "Walking to sitting on the chair (side view)",
+      "raw_classes": "Sitting[3 to 6]; Walking[0 to 2.5]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/ADL/14.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 5,
+      "recording": "Day (Light On)",
+      "attire": "T-shirt & Trousers",
+      "description": "Sitting on the chair (side view) to walking",
+      "raw_classes": "Sitting[0 to 1]; Standing[4.7 to 5]; Walking[1.6 to 4.7]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/ADL/15.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 7,
+      "recording": "Day (Light On)",
+      "attire": "T-shirt & Trousers",
+      "description": "Walking to picking a mobile phone from the ground and then sitting on the chair",
+      "raw_classes": "Sitting[4 to 7]; Walking[0 to 1.5]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/ADL/16.mp4",
+      "subject": "Subject 1",
+      "category": "ADL",
+      "nominal_duration_s": 3,
+      "recording": "Day (Light On)",
+      "attire": "T-shirt & Trousers",
+      "description": "Picking the mobile phone from the ground while sitting on the chair",
+      "raw_classes": "Sitting[0 to 3]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/01.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Falling from sitting on the chair to the ground. Left side Fall. Full body not visible",
+      "raw_classes": "Falling (SW)[3.4 to 6]; Sitting[0 to 3.4]",
+      "fall_intervals": [
+        {
+          "start_s": 3.4,
+          "end_s": 6.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/02.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Falling from sitting on the chair to the ground. Left side Fall. Full body not visible",
+      "raw_classes": "Falling (SW)[1.9 to 6]; Sitting[0 to 1.9]",
+      "fall_intervals": [
+        {
+          "start_s": 1.9,
+          "end_s": 6.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/03.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 5,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Falling from sitting on the chair to the ground. Left side fall",
+      "raw_classes": "Falling (SW)[2.5 to 5]; Sitting[0 to 2.5]",
+      "fall_intervals": [
+        {
+          "start_s": 2.5,
+          "end_s": 5.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/04.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Falling from sitting on the chair to the ground. Right side fall",
+      "raw_classes": "Falling (SW)[2.3 to 4]; Sitting[0 to 2.2]",
+      "fall_intervals": [
+        {
+          "start_s": 2.3,
+          "end_s": 4.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/05.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 5,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Walking to falling. Right side fall",
+      "raw_classes": "Falling (SW)[1.8 to 5]:; Walking[0 to 1.8]",
+      "fall_intervals": [
+        {
+          "start_s": 1.8,
+          "end_s": 5.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/06.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 5,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Walking to falling. Right side fall",
+      "raw_classes": "Falling (SW)[2.2 to 5]; Walking[0 to 2.1]",
+      "fall_intervals": [
+        {
+          "start_s": 2.2,
+          "end_s": 5.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/07.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 5,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Walking to falling. Right side fall",
+      "raw_classes": "Falling (SW)[1.1 to 5]; Walking[0 to 1]",
+      "fall_intervals": [
+        {
+          "start_s": 1.1,
+          "end_s": 5.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/08.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Walking to falling. Left side fall",
+      "raw_classes": "Falling (FW)[0.8 to 4]; Walking[0 to 0.8]",
+      "fall_intervals": [
+        {
+          "start_s": 0.8,
+          "end_s": 4.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/09.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Standing position to falling. Forward Fall. Full body (head) not visible",
+      "raw_classes": "Falling (FW)[0.7 to 4]; Standing[0 to 0.6]",
+      "fall_intervals": [
+        {
+          "start_s": 0.7,
+          "end_s": 4.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/10.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day (Light On)",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Standing position to falling. Forward Fall. Full body (right eye) not visible",
+      "raw_classes": "Falling (FW)[0.7 to 4]; Standing[0 to 0.7]",
+      "fall_intervals": [
+        {
+          "start_s": 0.7,
+          "end_s": 4.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/11.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day (Light On)",
+      "attire": "T-shirt & Trousers",
+      "description": "Standing position to falling",
+      "raw_classes": "Falling (BW)[1 to 6]; Standing[0 to 1]",
+      "fall_intervals": [
+        {
+          "start_s": 1.0,
+          "end_s": 6.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/12.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day (Light On)",
+      "attire": "T-shirt & Trousers",
+      "description": "Standing position to falling. Backward Fall",
+      "raw_classes": "Falling (BW)[1.9 to 6]; Standing[0 to 1.8]",
+      "fall_intervals": [
+        {
+          "start_s": 1.9,
+          "end_s": 6.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/13.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day (Light On)",
+      "attire": "T-shirt & Trousers",
+      "description": "Standing position to falling. Backward fall. Full body (head) is not visible",
+      "raw_classes": "Falling (BW)[0.4 to 4]; Standing[0 to 0.3]",
+      "fall_intervals": [
+        {
+          "start_s": 0.4,
+          "end_s": 4.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/14.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 5,
+      "recording": "Day (Light On)",
+      "attire": "T-shirt & Trousers",
+      "description": "Standing position to falling. Backward fall. Full body (both ankles) is not visible",
+      "raw_classes": "Falling (BW) [0.3 to 5]; Standing [0 to 0.2]",
+      "fall_intervals": [
+        {
+          "start_s": 0.3,
+          "end_s": 5.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/15.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day (Light On)",
+      "attire": "T-shirt & Trousers",
+      "description": "Sitting on the chair (side view) to right side fall",
+      "raw_classes": "Falling (SW) [1.8 to 6] ; Sitting [0 to 2]",
+      "fall_intervals": [
+        {
+          "start_s": 1.8,
+          "end_s": 6.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 1/Fall/16.mp4",
+      "subject": "Subject 1",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day (Light On)",
+      "attire": "T-shirt & Trousers",
+      "description": "Sitting on the chair (side view) to the left side fall",
+      "raw_classes": "Falling (SW) [ 2.8 to 6]; Sitting [0 to 2.9]",
+      "fall_intervals": [
+        {
+          "start_s": 2.8,
+          "end_s": 6.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/01.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 11,
+      "recording": "Day",
+      "attire": "Full Shirt & Pant",
+      "description": "Talking on the mobile phone while sitting on the bed and walking",
+      "raw_classes": "Sitting [0 to 7]; Standing [7.3 to 8.1]; Walking[8.1 to 11]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/02.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 11,
+      "recording": "Day",
+      "attire": "Full Shirt & Pant",
+      "description": "Picking up a water bottle from the ground and drinking while sitting on the bed",
+      "raw_classes": "Drinking[10.5 to 11]; Sitting [0 to 11];",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/03.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 11,
+      "recording": "Day",
+      "attire": "Full Shirt & Pant",
+      "description": "Walking; removing dust from the bed using a pillow; and sleeping on the bed",
+      "raw_classes": "Sitting[5.6 to 7.4]; Sleeping[8 to 11]; Walking[0 to 4.6]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/04.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 70,
+      "recording": "Day",
+      "attire": "Full Shirt & Pant",
+      "description": "Yoga: Standing forward bend (Uttanasana)",
+      "raw_classes": "Exercising[0 to 7]; Standing[0 to 7]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/05.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 10,
+      "recording": "Day",
+      "attire": "Full Shirt & Pant",
+      "description": "Throwing a book on the bed; standing up from the ground; walking; and opening the curtain",
+      "raw_classes": "Sitting[0 to 2.8]; Standing[3.1 to 4.1]; Walking[4.1 to 10]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/06.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 10,
+      "recording": "Day",
+      "attire": "Full Shirt & Pant",
+      "description": "Picking up the mobile phone from the ground; placing it on the bed; and sitting on the bed",
+      "raw_classes": "Sitting[9.7 to 3]; Standing[0 to 0.5; 4.2 to 6.5]; Walking[0.5 to 1.8; 6 to 8.7]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/07.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 13,
+      "recording": "Day",
+      "attire": "Full Shirt & Pant",
+      "description": "Exercising (Moving both hands up and down)",
+      "raw_classes": "Exercising[0 to 13]; Standing[0 to 13]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/08.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 13,
+      "recording": "Day",
+      "attire": "Full Shirt & Pant",
+      "description": "Exercising (Stretching thigh and trying to touch the ground:Pyramid Pose)",
+      "raw_classes": "Exercising[0 to 13]; Standing[4.5 to 6.2; 10 to 13]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/09.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 10,
+      "recording": "Day",
+      "attire": "Full Shirt & Paint",
+      "description": "Standing up from a sitting position on the bed and then sitting on the ground",
+      "raw_classes": "Sitting[0 to 0.5; 3.7 to 10]; Standing[0.5 to 1.3]; Walking[0.5 to 3.1]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/10.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 7,
+      "recording": "Day",
+      "attire": "Full Shirt & Paint",
+      "description": "Standing up from the ground and closing the curtain",
+      "raw_classes": "Standing[0.1 to 2.1]; Walking[2.1 to 5]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/11.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 10,
+      "recording": "Day",
+      "attire": "Full Shirt; T-shirt & Pant",
+      "description": "Removing the shirt and hanging it on the hanger",
+      "raw_classes": "Standing[0 to 4.7]; Walking[5 to 6.5; 8 to 10]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/12.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 7,
+      "recording": "Day",
+      "attire": "T-shirt and Pant",
+      "description": "Going to bed and sleeping (belly facing downwards)",
+      "raw_classes": "Sleeping[3 to 7]; Standing[0 to 0.1]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/13.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 4,
+      "recording": "Day",
+      "attire": "T-shirt and Pant",
+      "description": "Sitting on the ground and reading a book",
+      "raw_classes": "Reading[1 to 4]; Sitting[1 to 4]; Standing[0 to 0.5]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/14.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 11,
+      "recording": "Night",
+      "attire": "Full Shirt & Jeans",
+      "description": "Walking and reading something while sitting on the bed",
+      "raw_classes": "Reading[8.6 to 11]; Sitting[4.6 to 11]; Walking[0 to 3.6]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/15.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 11,
+      "recording": "Night",
+      "attire": "Full Shirt & Jeans",
+      "description": "Reading a newspaper while sitting on the bed and placing a pillow on the lap",
+      "raw_classes": "Reading[6.5 to 11]; Sitting[0 to 11]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/16.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 11,
+      "recording": "Night",
+      "attire": "Full Shirt & Jeans",
+      "description": "Reading a newspaper; throwing the newspaper; and sleeping",
+      "raw_classes": "Reading[0 to 5.8]; Sleeping[9 to 11]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/17.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 11,
+      "recording": "Night",
+      "attire": "Full Shirt & Jeans",
+      "description": "Standing up from bed; walking; and checking the dress on the hanger",
+      "raw_classes": "Standing[3.5 to 4; 6.8 to 10]; Walking[4.1 to 6.8]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/18.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 11,
+      "recording": "Night",
+      "attire": "Full Shirt & Jeans",
+      "description": "Walking; opening the window; and looking outside",
+      "raw_classes": "Standing[2 to 11]; Walking[0 to 2]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/19.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 11,
+      "recording": "Night",
+      "attire": "Full Shirt & Jeans",
+      "description": "Sitting on the ground and writing in a notebook",
+      "raw_classes": "Sitting[1 to 11]; Walking[0 to 0.6]; Writing[5 to 11]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/20.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 11,
+      "recording": "Night",
+      "attire": "Full Shirt & Jeans",
+      "description": "Standing up; picking up a water bottle; and drinking water while sitting on the ground",
+      "raw_classes": "Drinking[7.4 to 9.4]; Sitting[3.7 to 11]; Standing[0 to 3.2]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/21.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 10,
+      "recording": "Night",
+      "attire": "Full Shirt & Jeans",
+      "description": "Picking up a pen from the ground and walking",
+      "raw_classes": "Standing[0 to 6.6]; Walking[6.6 to 10]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/22.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 12,
+      "recording": "Night",
+      "attire": "Full Shirt & Jeans",
+      "description": "Exercising (Push-up) and sitting",
+      "raw_classes": "Exercising[1.9 to 8.3]; Sitting[9.5 to 10.5]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/ADL/23.mp4",
+      "subject": "Subject 2",
+      "category": "ADL",
+      "nominal_duration_s": 7,
+      "recording": "Night",
+      "attire": "Full Shirt & Jeans",
+      "description": "Eating biscuits while sitting on the bed with legs folded",
+      "raw_classes": "Eating[4.2 to 5.2]; Sitting[0 to 7]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/01.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants",
+      "description": "Right side fall on the ground",
+      "raw_classes": "Falling (SW)[1.4 to 6]; Standing[0.4 to 1.2]",
+      "fall_intervals": [
+        {
+          "start_s": 1.4,
+          "end_s": 6.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/02.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 8,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants",
+      "description": "Right side fall on the ground after walking",
+      "raw_classes": "Falling (SW)[2.7 to 8]; Walking[0 to 2.6]",
+      "fall_intervals": [
+        {
+          "start_s": 2.7,
+          "end_s": 8.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/03.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 7,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants",
+      "description": "Forward fall on the bed",
+      "raw_classes": "Falling (FW)[0 to 7]",
+      "fall_intervals": [
+        {
+          "start_s": 0.0,
+          "end_s": 7.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/04.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 10,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants",
+      "description": "Seeing outside the window then backward fall",
+      "raw_classes": "Falling (BW)[3.3 to 10]; Standing[0 to 3.1]",
+      "fall_intervals": [
+        {
+          "start_s": 3.3,
+          "end_s": 10.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/05.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants",
+      "description": "Left side fall (face hidden by hand)",
+      "raw_classes": "Falling (SW)[0.8 to 4]; Standing[0 to 0.7]",
+      "fall_intervals": [
+        {
+          "start_s": 0.8,
+          "end_s": 4.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/06.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants",
+      "description": "Walking while seeing the mobile phone then fall backward (left hand not fully in the frame)",
+      "raw_classes": "Falling (BW)[2.1 to 6]; Walking[0 to 1.9]",
+      "fall_intervals": [
+        {
+          "start_s": 2.1,
+          "end_s": 6.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/07.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day",
+      "attire": "Full Shirt & Pants",
+      "description": "Falling (forward) after trying to pick the bottle from the ground",
+      "raw_classes": "Falling (FW)[2 to 4]; Standing[0 to 1.7]",
+      "fall_intervals": [
+        {
+          "start_s": 2.0,
+          "end_s": 4.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/08.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day",
+      "attire": "Full Shirt & Pants",
+      "description": "Reading a newspaper in the sitting position on the ground then falling backward",
+      "raw_classes": "Falling (BW)[3.2 to 6]; Reading[0 to 2.1]; Sitting[0 to 3]",
+      "fall_intervals": [
+        {
+          "start_s": 3.2,
+          "end_s": 6.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/09.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 5,
+      "recording": "Day",
+      "attire": "Full Shirt & Pants",
+      "description": "Falling backward after walking",
+      "raw_classes": "Falling (BW)[1.8 to 5]; Walking[0 to 1.7]",
+      "fall_intervals": [
+        {
+          "start_s": 1.8,
+          "end_s": 5.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/10.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 11,
+      "recording": "Night",
+      "attire": "Full Shirt & Jeans",
+      "description": "Right side fall then backward",
+      "raw_classes": "Falling (BW)[2 to 4]; Falling (SW)[4 to 11]; Walking[0 to 1.8]",
+      "fall_intervals": [
+        {
+          "start_s": 2.0,
+          "end_s": 4.0,
+          "direction": "BW"
+        },
+        {
+          "start_s": 4.0,
+          "end_s": 11.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/11.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 10,
+      "recording": "Night",
+      "attire": "Full Shirt & Jeans",
+      "description": "Falling from bed to ground",
+      "raw_classes": "Falling (BW[5.9 to 10]; Walking[0 to 1.3]",
+      "fall_intervals": [
+        {
+          "start_s": 5.9,
+          "end_s": 10.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": [
+        "missing closing parenthesis in fall direction"
+      ]
+    },
+    {
+      "path": "Subject 2/Fall/12.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 12,
+      "recording": "Night",
+      "attire": "Full Shirt & Jeans",
+      "description": "Drinking water from the water bottle then falling backwards",
+      "raw_classes": "Falling (BW)[6.9 to 12]; Drinking[3.5 to 5.3]; Standing[3.6 to 6.9]; Walking[0 to 3.6]",
+      "fall_intervals": [
+        {
+          "start_s": 6.9,
+          "end_s": 12.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/13.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 8,
+      "recording": "Night",
+      "attire": "Full Shirt & Jeans",
+      "description": "Falling backward (side view)",
+      "raw_classes": "Falling (BW)[2.5 to 8]; Standing[0 to 2.5]",
+      "fall_intervals": [
+        {
+          "start_s": 2.5,
+          "end_s": 8.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/14.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 11,
+      "recording": "Night",
+      "attire": "Full Shirt & Jeans",
+      "description": "Falling backward on the bed",
+      "raw_classes": "Falling (BW)[3.4 to 11]; Standing[0 to 3.2]",
+      "fall_intervals": [
+        {
+          "start_s": 3.4,
+          "end_s": 11.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/15.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 11,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants 2",
+      "description": "Writing while sitting on the bed; then falling on the ground",
+      "raw_classes": "Falling (SW)[7.7 to 11]; Sitting[0 to 7.7]; Writing[0 to 4.6]",
+      "fall_intervals": [
+        {
+          "start_s": 7.7,
+          "end_s": 11.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/16.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants 2",
+      "description": "Walking then falling forward",
+      "raw_classes": "Falling (FW)[0.8 to 4]; Walking[0 to 0.6]",
+      "fall_intervals": [
+        {
+          "start_s": 0.8,
+          "end_s": 4.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/17.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants 2",
+      "description": "Walking then falling forward",
+      "raw_classes": "Falling (FW)[2.5 to 6]; Walking[0 to 2.1]",
+      "fall_intervals": [
+        {
+          "start_s": 2.5,
+          "end_s": 6.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/18.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 11,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants 2",
+      "description": "Picking a water bottle from the ground and drinking water from it then falling forward on the ground",
+      "raw_classes": "Falling (FW)[9.8 to 11]; Drinking[3.9 to 5.8]; Standing[0 to 2.3]; Walking[2.3 to 4.3]",
+      "fall_intervals": [
+        {
+          "start_s": 9.8,
+          "end_s": 11.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/19.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 15,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants 2",
+      "description": "Eating in standing position then falling forward",
+      "raw_classes": "Falling (FW)[8.2 to 15]; Eating[0.9 4.6]; Standing[0 to 8.1]",
+      "fall_intervals": [
+        {
+          "start_s": 8.2,
+          "end_s": 15.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/20.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 11,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants 2",
+      "description": "Eating in standing position then falling forward",
+      "raw_classes": "Falling (FW)[7.9 to 11]; Eating[1.6 to 3.2]; Standing[0 to 7.7]",
+      "fall_intervals": [
+        {
+          "start_s": 7.9,
+          "end_s": 11.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/21.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 9,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants 2",
+      "description": "Standing then falling sideways",
+      "raw_classes": "Falling (SW)[6.2 to 9]; Standing[0 to 4.9]; Walking[4.9 to 6.1]",
+      "fall_intervals": [
+        {
+          "start_s": 6.2,
+          "end_s": 9.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/22.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 5,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants 2",
+      "description": "Walking then falling forward",
+      "raw_classes": "Falling (FW)[1.3 to 5]; Walking[0 to 1.2]",
+      "fall_intervals": [
+        {
+          "start_s": 1.3,
+          "end_s": 5.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/23.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 7,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants 2",
+      "description": "Standing then falling sideways",
+      "raw_classes": "Falling (SW)[3.6 to 7]; Standing[0 to 3.6]",
+      "fall_intervals": [
+        {
+          "start_s": 3.6,
+          "end_s": 7.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/24.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 7,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants 2",
+      "description": "Standing from the bed and then falling sideways on the ground",
+      "raw_classes": "Falling (SW)[3.3 to 6.4]; Sitting[0 to 1.7]; Standing[2 to 3.2]",
+      "fall_intervals": [
+        {
+          "start_s": 3.3,
+          "end_s": 6.4,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 2/Fall/25.mp4",
+      "subject": "Subject 2",
+      "category": "Fall",
+      "nominal_duration_s": 7,
+      "recording": "Day",
+      "attire": "T-Shirt & Pants 2",
+      "description": "Standing then falling backward on the ground",
+      "raw_classes": "Falling (BW)[3 to 7]; Standing[0 to 3]",
+      "fall_intervals": [
+        {
+          "start_s": 3.0,
+          "end_s": 7.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/01.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 8,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Writing something in the notebook while sitting on the bed",
+      "raw_classes": "Sitting[0 to 8]; Writing[0 to 8]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/02.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 9,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Exercise (Hand up & down)",
+      "raw_classes": "Exercising[0 to 9]; Standing[0 to 9]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/03.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 9,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Getting up from the sleeping position from the bed; Putting a mask on the face; then walking",
+      "raw_classes": "Sitting[3 to 7.4]; Sleeping[0 to 1]; Standing[7.6 to 8.4]; Walking[8.5 to 9]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/04.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 10,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Picking a book from the floor and putting it on the bed; sitting on the bed",
+      "raw_classes": "Sitting[9.2 to 10]; Standing[2.4 to 3.6; 6.6 to 7.9; Walking[3.6 to 5.2; 7.9 to 9.2]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/05.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 5,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Exercising (hand down & up with body bending)",
+      "raw_classes": "Exercising[0 to 5]; Standing[0 to 5]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/06.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 8,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Exercising then sitting down on the floor",
+      "raw_classes": "Exercising[0 to 5.1]; Sitting[5.1 to 8]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/07.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 3,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Exercising (sitting and standing)",
+      "raw_classes": "Exercising[0 to 3]; Standing[0 to 0.3; 1.5 to 2.2]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/08.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 4,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Sitting to sleeping on the floor",
+      "raw_classes": "Sitting[0 to 0.8]; Sleeping[0.8 to 4]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/09.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 7,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trousers",
+      "description": "Sleeping on the floor to sitting and then standing",
+      "raw_classes": "Sitting[2.5 to 6]; Sleeping[0 to 2.2]; Standing[6.2 to 7]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/10.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 12,
+      "recording": "Day",
+      "attire": "Full shirt & Trousers",
+      "description": "Opening the window curtain and the window",
+      "raw_classes": "Standing[0 to 12]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/11.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 12,
+      "recording": "Day",
+      "attire": "Full shirt & Trousers",
+      "description": "Closing the window curtain and the window",
+      "raw_classes": "Standing[2.7 to 12]; Walking[0 to 2.7]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/12.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 10,
+      "recording": "Night",
+      "attire": "Full T-shirt 2 & Trousers",
+      "description": "Changing pages of a book while sitting on the bed; standing",
+      "raw_classes": "Reading; Sitting[0.8 to 8.1]; Standing[8.1 to 9.2]; Walking[9.2 to 10]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/13.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 8,
+      "recording": "Night",
+      "attire": "Full T-shirt (different) & Trousers",
+      "description": "Sitting on the floor",
+      "raw_classes": "Sitting[0 to 8]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/14.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 8,
+      "recording": "Night",
+      "attire": "Full T-shirt (different) & Trousers",
+      "description": "Sitting on the floor & drinking water from the water bottle",
+      "raw_classes": "Drinking[3.5 to 6]; Sitting[0 to 8]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/15.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 7,
+      "recording": "Night",
+      "attire": "Full T-shirt (different) & Trousers",
+      "description": "Reading newspaper while sitting on the floor",
+      "raw_classes": "Reading[0 to 7]; Sitting[0 to 7]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/16.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 10,
+      "recording": "Day",
+      "attire": "Kurta & Trousers",
+      "description": "Eating while sitting on the ground",
+      "raw_classes": "Eating[0 to 10]; Sitting[0 to 10]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/17.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 12,
+      "recording": "Night",
+      "attire": "Full T-shirt (different) & Trousers",
+      "description": "Drinking water from a water bottle while sitting on the bed Putting the water bottle on the bed",
+      "raw_classes": "Drinking[1.8 to 4.1]; Sitting[0 to 12]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/18.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 11,
+      "recording": "Night",
+      "attire": "Full T-shirt (different) & Trousers",
+      "description": "Walking; sitting on the bed and eating biscuits",
+      "raw_classes": "Eating[5.1 to 5.8]; Sitting[0.6 to 11]; Walking[0 to 0.5]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/19.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 6,
+      "recording": "Night",
+      "attire": "Full T-shirt (different) & Trousers",
+      "description": "Picking the pen from the floor and putting it on the bed",
+      "raw_classes": "Walking[1.8 to 5]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/20.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 9,
+      "recording": "Night",
+      "attire": "Full T-shirt (different) & Trousers",
+      "description": "Talking on the phone while sitting on the bed",
+      "raw_classes": "Sitting[0 to 9]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/21.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 10,
+      "recording": "Day",
+      "attire": "Kurta & Trousers",
+      "description": "Drinking while sitting on the bed",
+      "raw_classes": "Drinking[0 to 5.1]; Sitting[ 0 to 10]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/ADL/22.mp4",
+      "subject": "Subject 3",
+      "category": "ADL",
+      "nominal_duration_s": 9,
+      "recording": "Day",
+      "attire": "Kurta & Trousers",
+      "description": "Writing while sitting on the bed",
+      "raw_classes": "Sitting[0 to 9]; Writing[0 to 9]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/01.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 3,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trouser",
+      "description": "falling forward",
+      "raw_classes": "Fall (FW)[0 to 3]",
+      "fall_intervals": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/02.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trouser",
+      "description": "Falling on the bed (forward)",
+      "raw_classes": "Fall (FW)[2.6 to 6]; Standing[1.3 to 2.2]; Walking[0 to 1.3]",
+      "fall_intervals": [
+        {
+          "start_s": 2.6,
+          "end_s": 6.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/03.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 5,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trouser",
+      "description": "Falling backward on the floor",
+      "raw_classes": "Falling (BW)[1.5 to 5]; Standing[0 to 1.5]",
+      "fall_intervals": [
+        {
+          "start_s": 1.5,
+          "end_s": 5.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/04.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 5,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trouser",
+      "description": "Walking and then falling backward on the floor",
+      "raw_classes": "Falling (BW)[1.2 to 5]; Walking[0 to 1.2]",
+      "fall_intervals": [
+        {
+          "start_s": 1.2,
+          "end_s": 5.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/05.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 10,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trouser",
+      "description": "Falling slowly from standing position to the floor",
+      "raw_classes": "Falling (BW)[3.2 to 10]; Standing[0 to 3]",
+      "fall_intervals": [
+        {
+          "start_s": 3.2,
+          "end_s": 10.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/06.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 5,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trouser",
+      "description": "Falling (backward) on the floor from the sitting position",
+      "raw_classes": "Falling (BW) [0 to 5]",
+      "fall_intervals": [
+        {
+          "start_s": 0.0,
+          "end_s": 5.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/07.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 9,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trouser",
+      "description": "Falling on the floor from the standing position",
+      "raw_classes": "Falling (BW)[1 to 9]; Standing[0 to 1]",
+      "fall_intervals": [
+        {
+          "start_s": 1.0,
+          "end_s": 9.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/08.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trouser",
+      "description": "Falling on the right side onto the floor from a standing position",
+      "raw_classes": "Falling (SW)[0 to 6]",
+      "fall_intervals": [
+        {
+          "start_s": 0.0,
+          "end_s": 6.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/09.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trouser",
+      "description": "Reading the book while sitting on the ground; then falling backward",
+      "raw_classes": "Falling (BW)[3.3 to 6]; Reading[0 to 3.3]; Sitting[0 to 3.4]",
+      "fall_intervals": [
+        {
+          "start_s": 3.3,
+          "end_s": 6.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/10.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day",
+      "attire": "Full shirt & Trouser",
+      "description": "Falling forward on the bed",
+      "raw_classes": "Falling (FW)[1.7 to 4]",
+      "fall_intervals": [
+        {
+          "start_s": 1.7,
+          "end_s": 4.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/11.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 8,
+      "recording": "Day",
+      "attire": "Kurta & Trouser",
+      "description": "Eating in standing position then falling forward",
+      "raw_classes": "Falling (FW)[4.7 to 8]; Eating[0 to 2]; Standing[0 to 4.6]",
+      "fall_intervals": [
+        {
+          "start_s": 4.7,
+          "end_s": 8.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/12.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trouser",
+      "description": "Falling backward from the bed",
+      "raw_classes": "Falling (BW)[1.6 to 4]; Standing[0 to 0.8]",
+      "fall_intervals": [
+        {
+          "start_s": 1.6,
+          "end_s": 4.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/13.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day",
+      "attire": "Full T-shirt & Trouser",
+      "description": "Writing something in a notebook while sitting position on the floor; then falling backward",
+      "raw_classes": "Falling (BW)[1.4 to 4]; Sitting[0 to 1.4]; Writing[0 to 1.3]",
+      "fall_intervals": [
+        {
+          "start_s": 1.4,
+          "end_s": 4.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/14.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 12,
+      "recording": "Day",
+      "attire": "Full T-shirt; Shirt  & Trouser",
+      "description": "Falling backward on the floor while removing the shirt and trying to hang it on the hangar",
+      "raw_classes": "Falling (BW)[8.1 to 12]; Standing[4.6 to 8.1];Walking[0 to 4.6]",
+      "fall_intervals": [
+        {
+          "start_s": 8.1,
+          "end_s": 12.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/15.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 5,
+      "recording": "Night",
+      "attire": "Full T-shirt (different) & Trouser",
+      "description": "Trying to drink water from the water bottle and then falling on the floor",
+      "raw_classes": "Falling (BW)[1.9 to 5]; Standing[0 to 1.8]",
+      "fall_intervals": [
+        {
+          "start_s": 1.9,
+          "end_s": 5.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/16.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 7,
+      "recording": "Night",
+      "attire": "Full T-shirt (different) & Trouser",
+      "description": "Walking and then falling left side on the floor",
+      "raw_classes": "Falling (SW)[1.8 to 7]; Walking[0 to 1.7]",
+      "fall_intervals": [
+        {
+          "start_s": 1.8,
+          "end_s": 7.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/17.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 8,
+      "recording": "Night",
+      "attire": "Full T-shirt (different) & Trouser",
+      "description": "Reading newspaper then falling Backward on the bed",
+      "raw_classes": "Falling (BW)[1.4 to 8]; Reading[0 to 1.1]; Sitting[0 to 1.4]",
+      "fall_intervals": [
+        {
+          "start_s": 1.4,
+          "end_s": 8.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/18.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 11,
+      "recording": "Night",
+      "attire": "Full T-shirt (different) & Trouser",
+      "description": "Sitting on the bed; then falling on the floor",
+      "raw_classes": "Falling (SW)[4.2 to 11]; Sitting[0 to 3.2]",
+      "fall_intervals": [
+        {
+          "start_s": 4.2,
+          "end_s": 11.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/19.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 5,
+      "recording": "Night",
+      "attire": "Full T-shirt (different) & Trouser",
+      "description": "Falling on the floor from the standing position",
+      "raw_classes": "Falling (BW)[2 to 5]; Standing[0 to 1.9]",
+      "fall_intervals": [
+        {
+          "start_s": 2.0,
+          "end_s": 5.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/20.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Night",
+      "attire": "Full T-shirt (different) & Trouser",
+      "description": "Walking then falling forward on the floor",
+      "raw_classes": "Falling (FW)[2.3 to 6]; Walking[0 to 2.2]",
+      "fall_intervals": [
+        {
+          "start_s": 2.3,
+          "end_s": 6.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 3/Fall/21.mp4",
+      "subject": "Subject 3",
+      "category": "Fall",
+      "nominal_duration_s": 9,
+      "recording": "Day",
+      "attire": "Kurta & Trouser",
+      "description": "Drinking in standing position then falling sideways",
+      "raw_classes": "Falling (SW)[5.4 to 9]; Drinking[0 to 1.4]; Standing[0 to 4.4]",
+      "fall_intervals": [
+        {
+          "start_s": 5.4,
+          "end_s": 9.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/01.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 12,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Wiping the face with a handkerchief while sitting on the bed; cleaning the goggles and putting them on",
+      "raw_classes": "Sitting[0 to 12]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/02.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 10,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Talking on the mobile phone while walking",
+      "raw_classes": "Walking[0 to 10]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/03.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 8,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Reading a book while sitting on the bed",
+      "raw_classes": "Reading[3.8 to 8]; Sitting[ 0 to 8]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/04.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 13,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Using a laptop while sitting on the bed",
+      "raw_classes": "Sitting[0 to 13]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/05.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 7,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Doing exercise (push-up); view 1",
+      "raw_classes": "Exercising[2.6 to 7]; Walking[0 to 1.9]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/06.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 6,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Doing exercise (push-up); view 2",
+      "raw_classes": "Exercising[1.4 to 6]; Walking[0 to 1]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/07.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 4,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Doing exercise (push-up); view 3",
+      "raw_classes": "Exercising[0 to 4]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/08.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 12,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Sleeping to sitting; putting on the goggles and drinking water",
+      "raw_classes": "Drinking[8.5 to 12]; Sitting[2.1 to 12]; Sleeping[0 to 1.1]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/09.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 12,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Reading a book and checking the mobile phone while sitting on the bed",
+      "raw_classes": "Reading[0 to 12]; Sitting[0 to 12]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/10.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 12,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Walking then sleeping on the bed after removing the goggles",
+      "raw_classes": "Sleeping[4.3 to 12]; Walking[0 to 1.4]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/11.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 10,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Copying content from a book into a notebook while sitting on the floor",
+      "raw_classes": "Sitting[0 to 10]; Writing[2.7 to 10]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/12.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 8,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Stopping copying from a book and drinking water while sitting on the floor",
+      "raw_classes": "Drinking[4.5 to 8]; Reading[0 to 1.6]; Sitting[0 to 8]; Writing[0 to 1.6]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/13.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 5,
+      "recording": "Day (Lights On)",
+      "attire": "Full Shirt & Pant",
+      "description": "Writing while sitting on the chair",
+      "raw_classes": "Sitting[0 to 5]; Writing[0 to 5]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/14.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 8,
+      "recording": "Day (Lights On)",
+      "attire": "Full Shirt & Pant",
+      "description": "Sitting in the chair to standing on the floor; then picking up the water bottle and drinking water from it",
+      "raw_classes": "Drinking[4.5 to 6.7]; Standing[0 to 0.3; 1.5 to 8]; Walking[0.4 to 1.4]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/15.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 5,
+      "recording": "Day (Lights On)",
+      "attire": "Full Shirt & Pant",
+      "description": "Sitting to sleeping on the bed",
+      "raw_classes": "Sitting[0 to 0.5]; Sleeping[1.6 to 5]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/16.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 7,
+      "recording": "Day (Lights On)",
+      "attire": "Full Shirt & Pant",
+      "description": "Sitting on the bed; removing the goggles; then sleeping",
+      "raw_classes": "Sitting[0.5 to 2.8]; Sleeping[2.9 to 7]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/17.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 6,
+      "recording": "Day (Lights On)",
+      "attire": "Full Shirt & Pant",
+      "description": "Picking up the book from the floor and putting it on the bed",
+      "raw_classes": "Walking[0 to 6]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/18.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 14,
+      "recording": "Day (Lights On)",
+      "attire": "Full Shirt & Pant",
+      "description": "Wiping the face with a handkerchief; putting on the goggles; then reading a book",
+      "raw_classes": "Reading[11.5 to 14]; Sitting[0.7 to 14]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/19.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 9,
+      "recording": "Day (Lights On)",
+      "attire": "Full Shirt & Pant",
+      "description": "Walking; then picking up the biscuit jar and eating biscuits from it after sitting on the bed",
+      "raw_classes": "Eating[7.7 to 9]; Sitting[6.9 to 9]; Standing[3 to 6.4]; Walking[0 to 1.7]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/ADL/20.mp4",
+      "subject": "Subject 4",
+      "category": "ADL",
+      "nominal_duration_s": 17,
+      "recording": "Day (Lights On)",
+      "attire": "Full Shirt & Pant",
+      "description": "Eating biscuits then picking up the water bottle from the floor and drinking the water from it after sitting on the bed; keeping the bottle on the floor",
+      "raw_classes": "Drinking[4.6 to 10.4]; Eating[16.2 to 17]; Sitting[2.8 to 17]; Standing[0.7 to 2.6]",
+      "fall_intervals": [],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/Fall/01.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day (Lights On)",
+      "attire": "Full Shirt & Pant",
+      "description": "Standing on the bed to falling (LS) on the bed",
+      "raw_classes": "Falling (SW)[1.8 to 4]; Standing[0 to 1.5]",
+      "fall_intervals": [
+        {
+          "start_s": 1.8,
+          "end_s": 4.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/Fall/02.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 2,
+      "recording": "Day (Lights On)",
+      "attire": "Full Shirt & Pant",
+      "description": "Falling (LS) from the bed to the floor",
+      "raw_classes": "Falling (SW)[1.5 to 2]; Sleeping[0 to 1.4]",
+      "fall_intervals": [
+        {
+          "start_s": 1.5,
+          "end_s": 2.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/Fall/03.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Walking then falling (forward) view 1",
+      "raw_classes": "Falling (FW)[1.7 to 6]; Walking[0 to 1.7]",
+      "fall_intervals": [
+        {
+          "start_s": 1.7,
+          "end_s": 6.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/Fall/04.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Walking then falling (forward) view 2",
+      "raw_classes": "Falling (FW)[1.2 to 4]",
+      "fall_intervals": [
+        {
+          "start_s": 1.2,
+          "end_s": 4.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/Fall/05.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 7,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Falling (RS) on the bed from sitting on the bed",
+      "raw_classes": "Falling (SW)[2.7 to 7]; Sitting[0 to 2.4]",
+      "fall_intervals": [
+        {
+          "start_s": 2.7,
+          "end_s": 7.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/Fall/06.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Falling (LS) on the bed from sitting on the bed then falling (RS) to the floor",
+      "raw_classes": "Falling (SW)[1.1 to 6]; Sitting[0 to 1]",
+      "fall_intervals": [
+        {
+          "start_s": 1.1,
+          "end_s": 6.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/Fall/07.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Walking then falling (LS) on the floor",
+      "raw_classes": "Falling (SW)[2.4 to 6]; Walking[0 to 1.6]",
+      "fall_intervals": [
+        {
+          "start_s": 2.4,
+          "end_s": 6.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/Fall/08.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day (Lights Off)",
+      "attire": "Full Shirt & Pant",
+      "description": "Falling backward on the bed from sitting on the bed",
+      "raw_classes": "Falling (BW)[2.3 to 6]; Sitting[0 to 2.2]",
+      "fall_intervals": [
+        {
+          "start_s": 2.3,
+          "end_s": 6.0,
+          "direction": "BW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/Fall/09.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day (Lights On)",
+      "attire": "Full Shirt & Pant",
+      "description": "Falling backward on the bed from sitting on the bed",
+      "raw_classes": "Falling (BW)[2.3 6]; Sitting[0 to 2]",
+      "fall_intervals": [],
+      "annotation_issues": [
+        "malformed fall interval: '2.3 6'"
+      ]
+    },
+    {
+      "path": "Subject 4/Fall/10.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 5,
+      "recording": "Day (Lights On)",
+      "attire": "Full Shirt & Pant",
+      "description": "Reading a book while sitting on the chair then falling (FW) on the ground",
+      "raw_classes": "Falling (FW)[2.2 to 5]; Reading[0 to 2.1]; Sitting[0 to 2.1]",
+      "fall_intervals": [
+        {
+          "start_s": 2.2,
+          "end_s": 5.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/Fall/11.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day (Lights On)",
+      "attire": "Full Shirt & Pant",
+      "description": "Walking then falling (FW: only waist to toe is visible after falling)",
+      "raw_classes": "Falling (FW)[1.2 to 4]; Walking[0 to 1]",
+      "fall_intervals": [
+        {
+          "start_s": 1.2,
+          "end_s": 4.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/Fall/12.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day (Lights On)",
+      "attire": "T-Shirt & Pant",
+      "description": "Falling (FW)to the floor from sitting on the bed",
+      "raw_classes": "Falling (FW)[1.5 to 4]; Sitting[0 to 1.3]",
+      "fall_intervals": [
+        {
+          "start_s": 1.5,
+          "end_s": 4.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/Fall/13.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 5,
+      "recording": "Day (Lights On)",
+      "attire": "T-Shirt & Pant",
+      "description": "Falling (sideways) on the bed from sitting on the bed",
+      "raw_classes": "Falling (SW)[0.3 to 5]",
+      "fall_intervals": [
+        {
+          "start_s": 0.3,
+          "end_s": 5.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/Fall/14.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 5,
+      "recording": "Day (Lights On)",
+      "attire": "T-Shirt & Pant",
+      "description": "Falling (RS) on the bed from sitting on the bed then falling (LS) to the floor",
+      "raw_classes": "Falling (SW)[0.8 to 5]; Sitting[0 to 0.8]",
+      "fall_intervals": [
+        {
+          "start_s": 0.8,
+          "end_s": 5.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/Fall/15.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 4,
+      "recording": "Day (Lights On)",
+      "attire": "T-Shirt & Pant",
+      "description": "Falling (FW) on the floor from sitting on the bed",
+      "raw_classes": "Falling (FW); Sitting[0 to 1.7]",
+      "fall_intervals": [],
+      "annotation_issues": [
+        "missing fall interval"
+      ]
+    },
+    {
+      "path": "Subject 4/Fall/16.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 7,
+      "recording": "Day (Lights On)",
+      "attire": "T-Shirt & Pant",
+      "description": "Walking then falling (FW) on the floor",
+      "raw_classes": "Falling (FW)[3.2 to 7]; Walking[0 to 2.9]",
+      "fall_intervals": [
+        {
+          "start_s": 3.2,
+          "end_s": 7.0,
+          "direction": "FW"
+        }
+      ],
+      "annotation_issues": []
+    },
+    {
+      "path": "Subject 4/Fall/17.mp4",
+      "subject": "Subject 4",
+      "category": "Fall",
+      "nominal_duration_s": 6,
+      "recording": "Day (Lights On)",
+      "attire": "T-Shirt & Pant",
+      "description": "Falling (LS) on the bed from sitting on the bed",
+      "raw_classes": "Falling (SW)[2.8 to 6]; Sitting[0 to 2.6]",
+      "fall_intervals": [
+        {
+          "start_s": 2.8,
+          "end_s": 6.0,
+          "direction": "SW"
+        }
+      ],
+      "annotation_issues": []
+    }
+  ]
+}
